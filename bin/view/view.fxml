@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab text="Search Toy">
       <content>
@@ -26,19 +26,19 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <RadioButton layoutX="22.0" layoutY="104.0" mnemonicParsing="false" text="Serial Number" />
-                  <RadioButton layoutX="130.0" layoutY="104.0" mnemonicParsing="false" text="Toy Name" />
-                  <RadioButton layoutX="214.0" layoutY="104.0" mnemonicParsing="false" text="Toy Type" />
+                  <RadioButton fx:id="searchBySerialNumber" layoutX="22.0" layoutY="104.0" mnemonicParsing="false" text="Serial Number" />
+                  <RadioButton fx:id="searchByToyName" layoutX="130.0" layoutY="104.0" mnemonicParsing="false" text="Toy Name" />
+                  <RadioButton fx:id="searchByToyType" layoutX="214.0" layoutY="104.0" mnemonicParsing="false" text="Toy Type" />
                   <Label layoutX="38.0" layoutY="146.0" text="Serial Number:" />
                   <Label layoutX="38.0" layoutY="186.0" text="Toy Name:" />
                   <Label layoutX="38.0" layoutY="226.0" text="Toy Type:" />
-                  <TextField layoutX="127.0" layoutY="142.0" prefHeight="26.0" prefWidth="140.0" />
-                  <TextField layoutX="127.0" layoutY="182.0" prefHeight="25.0" prefWidth="140.0" />
-                  <TextField layoutX="127.0" layoutY="222.0" prefHeight="25.0" prefWidth="140.0" />
-                  <Button layoutX="104.0" layoutY="267.0" mnemonicParsing="false" text="Search" />
+                  <TextField fx:id="serialNumberInput" layoutX="127.0" layoutY="142.0" prefHeight="26.0" prefWidth="140.0" />
+                  <TextField fx:id="toyNameInput" layoutX="127.0" layoutY="182.0" prefHeight="25.0" prefWidth="140.0" />
+                  <TextField fx:id="toyTypeInput" layoutX="127.0" layoutY="222.0" prefHeight="25.0" prefWidth="140.0" />
+                  <Button fx:id="searchToys" layoutX="104.0" layoutY="267.0" mnemonicParsing="false" text="Search" />
                   <Button layoutX="175.0" layoutY="267.0" mnemonicParsing="false" text="Clear" />
                   <ListView layoutX="308.0" layoutY="65.0" prefHeight="221.0" prefWidth="478.0" />
-                  <Button layoutX="513.0" layoutY="300.0" mnemonicParsing="false" text="Purchase!" />
+                  <Button fx:id="purchaseToy" layoutX="513.0" layoutY="300.0" mnemonicParsing="false" text="Purchase!" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -57,12 +57,12 @@
                   <Label layoutX="14.0" layoutY="204.0" text="Toy Price" />
                   <Label layoutX="14.0" layoutY="244.0" text="Available Count:" />
                   <Label layoutX="14.0" layoutY="284.0" text="Appropriate Age:" />
-                  <TextField layoutX="124.0" layoutY="80.0" prefHeight="26.0" prefWidth="100.0" />
-                  <TextField layoutX="124.0" layoutY="120.0" prefHeight="26.0" prefWidth="100.0" />
-                  <TextField layoutX="124.0" layoutY="160.0" prefHeight="26.0" prefWidth="100.0" />
-                  <TextField layoutX="124.0" layoutY="240.0" prefHeight="26.0" prefWidth="100.0" />
-                  <TextField layoutX="124.0" layoutY="200.0" prefHeight="26.0" prefWidth="100.0" />
-                  <TextField layoutX="124.0" layoutY="280.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newSerialNumber" layoutX="124.0" layoutY="80.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newToyName" layoutX="124.0" layoutY="120.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newToyBrand" layoutX="124.0" layoutY="160.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newAvailableCount" layoutX="124.0" layoutY="240.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newToyPrice" layoutX="124.0" layoutY="200.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newAppropriateAge" layoutX="124.0" layoutY="280.0" prefHeight="26.0" prefWidth="100.0" />
                   <Label layoutX="352.0" layoutY="61.0" text="Figure">
                      <font>
                         <Font size="16.0" />
@@ -90,13 +90,13 @@
                   <Label layoutX="512.0" layoutY="241.0" text="Minimum Player Count" />
                   <Label layoutX="511.0" layoutY="281.0" text="Maximum Player Count" />
                   <Label layoutX="546.0" layoutY="321.0" text="Designers" />
-                  <TextField layoutX="359.0" layoutY="96.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField layoutX="359.0" layoutY="237.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField layoutX="616.0" layoutY="96.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField layoutX="645.0" layoutY="237.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField layoutX="616.0" layoutY="136.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField layoutX="645.0" layoutY="317.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField layoutX="645.0" layoutY="277.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newFigureClassification" layoutX="359.0" layoutY="96.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newPuzzleType" layoutX="359.0" layoutY="237.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newAnimalMaterial" layoutX="616.0" layoutY="96.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameMinCount" layoutX="645.0" layoutY="237.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newAnimalSize" layoutX="616.0" layoutY="136.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameDesigners" layoutX="645.0" layoutY="317.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameMaxCount" layoutX="645.0" layoutY="277.0" prefHeight="26.0" prefWidth="122.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -105,9 +105,9 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ListView layoutX="308.0" layoutY="65.0" prefHeight="221.0" prefWidth="478.0" />
-                  <Button layoutX="516.0" layoutY="300.0" mnemonicParsing="false" text="Remove!" />
+                  <Button fx:id="removeToy" layoutX="516.0" layoutY="300.0" mnemonicParsing="false" text="Remove!" />
                   <Label layoutX="38.0" layoutY="166.0" text="Serial Number:" />
-                  <TextField layoutX="137.0" layoutY="162.0" prefHeight="26.0" prefWidth="140.0" />
+                  <TextField fx:id="removeSerialNumber" layoutX="137.0" layoutY="162.0" prefHeight="26.0" prefWidth="140.0" />
                   <Label layoutX="301.0" layoutY="14.0" text="Enter Toy Serial Number:">
                      <font>
                         <Font size="18.0" />
