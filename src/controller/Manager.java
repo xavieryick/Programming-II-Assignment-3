@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -54,29 +56,50 @@ public class Manager {
 	@FXML
 	TextField newAppropriateAge;
 	@FXML
-	TextField newFigureClassification;
+	ComboBox<String> newFigureClassification = new ComboBox<>();
 	@FXML
-	TextField newPuzzleType;
+	ComboBox<String> newPuzzleType = new ComboBox<>();
 	@FXML
 	TextField newAnimalMaterial;
 	@FXML
-	TextField newAnimalSize;
+	ComboBox<String> newAnimalSize = new ComboBox<>();
 	@FXML
 	TextField newBoardGameMinCount;
 	@FXML
 	TextField newBoardGameMaxCount;
 	@FXML
 	TextField newBoardGameDesigners;
+	@FXML 
+	TextField removeSerialNumber;
 	
 	@FXML
 	ListView<String> toyListView = new ListView<>();
 	
+	@FXML 
+	ListView<String> removeListView = new ListView<>();
+
 	public Manager() {
 		toyList = new ArrayList<>();
  		try {
 			loadData();
 		} 
 		catch (Exception e) {
+		}
+	}
+	
+	@FXML
+	void save() {
+		File db = new File(FILE_PATH);
+		PrintWriter printWriter;
+		try {
+			printWriter = new PrintWriter(db);
+			for (Toy t: toyList) {
+				printWriter.println(t.format());
+			}
+			printWriter.close();
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -235,24 +258,54 @@ public class Manager {
 	}
 	
 	@FXML
-	void addToy() {		
-		String serialNumber = newSerialNumber.getText();
-		String toyName = newToyName.getText();
-		String toyBrand = newToyBrand.getText();
-		double toyPrice = Double.parseDouble(newToyPrice.getText());
-		int availableCount = Integer.parseInt(newAvailableCount.getText());
-		int appropriateAge = Integer.parseInt(newAppropriateAge.getText());
+	void addToy(ActionEvent Event) {		
+		String serialNumber = newSerialNumber.getText().trim();
+		String toyName = newToyName.getText().trim();
+		String toyBrand = newToyBrand.getText().trim();
+		double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
+		int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
+		int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim());
 		
-		char figureClassification = newFigureClassification.getText().charAt(0);
+		String figureClassification = newFigureClassification.getValue();
 		
-		char puzzleType = newPuzzleType.getText().charAt(0);
+		String puzzleType = newPuzzleType.getValue();
 		
-		String animalMaterial = newAnimalMaterial.getText();
-		char animalSize = newAnimalSize.getText().charAt(0);
+		String animalMaterial = newAnimalMaterial.getText().trim();
+		String animalSize = newAnimalSize.getValue();
 		
-		int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText());
-		int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText());
-		String boardGameDesigners = newBoardGameDesigners.getText();
+		int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
+		int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
+		String boardGameDesigners = newBoardGameDesigners.getText().trim();
+		
+		if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
+			Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
+			toyList.add(addToy);
+		}
+		else if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
+			Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
+			toyList.add(addToy);
+		}
+		else if (serialNumber.charAt(0) == '4' || serialNumber.charAt(0) == '5' || serialNumber.charAt(0) == '6') {
+			Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
+			toyList.add(addToy);
+		}
+		else if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
+			Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
+			toyList.add(addToy);
+		}
+		save();
 	}
 	
+	@FXML
+	void removeToy(ActionEvent Event) {	
+		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
+		String serialNumber = removeSerialNumber.getText().trim();
+		for (Toy toy:toyList) {
+			String currentToySN = toy.getSerialNumber();
+			if (currentToySN.equals(serialNumber)) {
+				matchingNumbers.add(toy.toString());
+			}
+		}
+		removeListView.setItems(matchingNumbers);
+	}
 }
