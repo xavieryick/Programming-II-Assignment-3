@@ -1,6 +1,6 @@
 package model;
 
-import mru.store.controller.CustomException;
+import controller.CustomException;
 /**
  * This class represents the toy type board games and extends from the toy class.
  * @author kaydence eng

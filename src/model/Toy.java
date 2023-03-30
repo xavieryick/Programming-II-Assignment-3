@@ -1,6 +1,6 @@
 package model;
 
-import mru.store.controller.CustomException;
+import controller.CustomException;
 /**
  * This class represents the general attributes each toy has in the database.
  * @author kaydence eng

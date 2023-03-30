@@ -6,8 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import model.Toy;
@@ -21,32 +26,54 @@ public class Manager {
 	private final String FILE_PATH = "res/toys.txt";
 	ArrayList<Toy> toyList;
 	Toy toy;
-	
+
+	@FXML
 	RadioButton searchBySerialNumber;
+	@FXML
 	RadioButton searchByToyName;
+	@FXML
 	RadioButton searchByToyType;
 	
+	@FXML
 	TextField serialNumberInput;
+	@FXML
 	TextField toyNameInput;
-	TextField toyTypeInput;
+	@FXML
+	ComboBox<String> toyTypeInput = new ComboBox<>();
 	
+	@FXML
 	TextField newSerialNumber;
+	@FXML
 	TextField newToyName;
+	@FXML
 	TextField newToyBrand;
+	@FXML
 	TextField newToyPrice;
+	@FXML
 	TextField newAvailableCount;
+	@FXML
 	TextField newAppropriateAge;
+	@FXML
 	TextField newFigureClassification;
+	@FXML
 	TextField newPuzzleType;
+	@FXML
 	TextField newAnimalMaterial;
+	@FXML
 	TextField newAnimalSize;
+	@FXML
 	TextField newBoardGameMinCount;
+	@FXML
 	TextField newBoardGameMaxCount;
+	@FXML
 	TextField newBoardGameDesigners;
 	
+	@FXML
+	ListView<String> toyListView = new ListView<>();
+	
 	public Manager() {
-		toyList = new ArrayList<>();		
-		try {
+		toyList = new ArrayList<>();
+ 		try {
 			loadData();
 		} 
 		catch (Exception e) {
@@ -54,12 +81,11 @@ public class Manager {
 	}
 	
 	@FXML
-	private void loadData() {
+	void loadData() {
 		File db = new File(FILE_PATH);
 		String currentLine;
 		String[] splitLine;
 		
-		// checking to see if file we write to exists 
 		if (db.exists()) {
 			
 			Scanner fileReader;
@@ -133,13 +159,16 @@ public class Manager {
 	 * @param serialNumber
 	 */
 	@FXML
-	private void searchBySerialNumber(String serialNumber) {			
+	void searchBySerialNumber(ActionEvent Event) {	
+		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
+		String serialNumber = serialNumberInput.getText().trim();
 		for (Toy toy:toyList) {
 			String currentToySN = toy.getSerialNumber();
 			if (currentToySN.equals(serialNumber)) {
-				System.out.println(toy.toString()); // add to listView instead
+				matchingNumbers.add(toy.toString());
 			}
 		}
+		toyListView.setItems(matchingNumbers);
 	}
 	
 	/**
@@ -147,13 +176,16 @@ public class Manager {
 	 * @param searchToyName
 	 */
 	@FXML
-	private void searchByToyName(String searchToyName) {
+	void searchByToyName(ActionEvent Event) {
+		ObservableList<String> matchingNames = FXCollections.observableArrayList();
+		String toyName = toyNameInput.getText().trim().toLowerCase();
 		for (Toy toy:toyList) {
 			String currentToyName = toy.getToyName();		
-			if (currentToyName.toLowerCase().contains(searchToyName)) {
-				System.out.println(toy.toString()); // add to listView instead
+			if (currentToyName.toLowerCase().contains(toyName)) {
+				matchingNames.add(toy.toString());
 			}
 		}
+		toyListView.setItems(matchingNames);
 	}
 	
 	/**
@@ -161,50 +193,49 @@ public class Manager {
 	 * @param toyType
 	 */
 	@FXML
-	private void searchByToyType(String toyType) {
+	void searchByToyType(ActionEvent Event) {
+		ObservableList<String> matchingTypes = FXCollections.observableArrayList();
+		String toyType = toyTypeInput.getValue();
 		for (Toy toy:toyList) {
 			if (toyType.equals("Figure")) {
 				if (toy.getSerialNumber().charAt(0) == '0' || toy.getSerialNumber().charAt(0) == '1') {
-					System.out.println(toy.toString());	//add to LV
+					matchingTypes.add(toy.toString());
 				}
 			}
 			else if (toyType.equals("Puzzle")) {
 				if (toy.getSerialNumber().charAt(0) == '2' || toy.getSerialNumber().charAt(0) == '3') {
-					System.out.println(toy.toString());	//add to LV
+					matchingTypes.add(toy.toString());
 				}
 			}
 			else if (toyType.equals("Animal")) {
 				if (toy.getSerialNumber().charAt(0) == '4' || toy.getSerialNumber().charAt(0) == '5' || toy.getSerialNumber().charAt(0) == '6') {
-					System.out.println(toy.toString());	//add to LV
+					matchingTypes.add(toy.toString());
 				}
 			}
 			else if (toyType.equals("Board Game")) {
 				if (toy.getSerialNumber().charAt(0) == '7' || toy.getSerialNumber().charAt(0) == '8' || toy.getSerialNumber().charAt(0) == '9') {
-					System.out.println(toy.toString());	//add to LV
+					matchingTypes.add(toy.toString());
 				}
 			}
 		}
+		toyListView.setItems(matchingTypes);
 	}
 	
 	@FXML
-	private void search() {
-		
+	void search(ActionEvent Event) {
 		if (searchBySerialNumber.isSelected()) {
-			String serialNumber = serialNumberInput.getText();
-			searchBySerialNumber(serialNumber);
+			searchBySerialNumber(Event);
 		}
 		else if (searchByToyName.isSelected()) {
-			String toyName = toyNameInput.getText();
-			searchByToyName(toyName);
+			searchByToyName(Event);
 		}
 		else if (searchByToyType.isSelected()) {
-			String toyType = toyTypeInput.getText();
-			searchByToyType(toyType);
+			searchByToyType(Event);
 		}
 	}
 	
 	@FXML
-	private void addToy() {		
+	void addToy() {		
 		String serialNumber = newSerialNumber.getText();
 		String toyName = newToyName.getText();
 		String toyBrand = newToyBrand.getText();
