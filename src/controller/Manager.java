@@ -84,6 +84,7 @@ public class Manager {
 			loadData();
 		} 
 		catch (Exception e) {
+		System.out.println("this is line 87");
 		}
 	}
 	
