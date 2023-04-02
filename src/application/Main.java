@@ -22,12 +22,6 @@ public class Main extends Application {
 			Scene scene = new Scene(root,800,400);
 			scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			//I tried moving this stuff to manager class
-//			ComboBox<String> toyTypeInput = new ComboBox<>();
-//			ObservableList<String> toyTypes = FXCollections.observableArrayList();
-//			toyTypes.addAll("Figure","Puzzle","Animal","Board Game");
-//			toyTypeInput.setItems(toyTypes); // ???
-			
 			primaryStage.show();		
 		} catch(Exception e) {
 			e.printStackTrace();

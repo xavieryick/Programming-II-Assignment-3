@@ -34,15 +34,15 @@ public class Manager implements Initializable{
 	private final String FILE_PATH = "res/toys.txt";
 	ArrayList<Toy> toyList;
 	Toy toy;
-	@FXML
-    ToggleGroup searchType;
+
 	@FXML
 	RadioButton searchBySerialNumber;
-	
 	@FXML
 	RadioButton searchByToyName;
 	@FXML
 	RadioButton searchByToyType;
+	@FXML
+	ToggleGroup searchTypes;
 	
 	@FXML
 	TextField serialNumberInput;
@@ -50,8 +50,9 @@ public class Manager implements Initializable{
 	TextField toyNameInput;
 	
 	@FXML
-	private ChoiceBox<String> toyTypeInput;
-	private String toyTypes[] = {"Figure","Puzzle","Animal","Board Game"};
+	ComboBox<String> toyTypeInput;
+	@FXML
+	String[] toyTypes = {"Figure","Animal","Puzzle","Board Game"};
 	
 	@FXML
 	TextField newSerialNumber;
@@ -65,20 +66,31 @@ public class Manager implements Initializable{
 	TextField newAvailableCount;
 	@FXML
 	TextField newAppropriateAge;
+	
 	@FXML
-	ComboBox<String> newFigureClassification = new ComboBox<>();
+	ComboBox<String> newFigureClassification;
 	@FXML
-	ComboBox<String> newPuzzleType = new ComboBox<>();
+	String[] figureClassifications = {"Action","Doll","Historic"};
+	
+	@FXML
+	ComboBox<String> newPuzzleType;
+	@FXML
+	String[] puzzleTypes = {"Mechanical","Cryptic","Logic","Trivia","Riddle"};
+
 	@FXML
 	TextField newAnimalMaterial;
 	@FXML
-	ComboBox<String> newAnimalSize = new ComboBox<>();
+	ComboBox<String> newAnimalSize;
+	@FXML
+	String[] animalSizes = {"Small","Medium","Large"};
+	
 	@FXML
 	TextField newBoardGameMinCount;
 	@FXML
 	TextField newBoardGameMaxCount;
 	@FXML
 	TextField newBoardGameDesigners;
+	
 	@FXML 
 	TextField removeSerialNumber;
 	
@@ -88,30 +100,24 @@ public class Manager implements Initializable{
 	@FXML 
 	ListView<String> removeListView = new ListView<>();
 	
-	
 	public Manager() {
-		toyList = new ArrayList<>();
  		try {
-			loadData();
-//			initialize();
-		} 
+
+ 		} 
 		catch (Exception e) {
-		
+			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		toyList = new ArrayList<>();
+		loadData();
 		toyTypeInput.getItems().addAll(toyTypes);
-		
-	}
-//	@FXML
-//    void initialize() {
-//		String toyTypes[] = {"Figure", "Puzzle", "Animal", "Board Game"};
-//    	toyTypeInput.getItems().addAll(toyTypes);
-//    	
-//    }
+		newFigureClassification.getItems().addAll(figureClassifications);
+		newPuzzleType.getItems().addAll(puzzleTypes);
+		newAnimalSize.getItems().addAll(animalSizes);
+    }
 	
 	@FXML
 	void save() {
@@ -251,12 +257,12 @@ public class Manager implements Initializable{
 					matchingTypes.add(toy.toString());
 				}
 			}
-			else if (toyType.equals("Puzzle")) {
+			else if (toyType.equals("Animal")) {
 				if (toy.getSerialNumber().charAt(0) == '2' || toy.getSerialNumber().charAt(0) == '3') {
 					matchingTypes.add(toy.toString());
 				}
 			}
-			else if (toyType.equals("Animal")) {
+			else if (toyType.equals("Puzzle")) {
 				if (toy.getSerialNumber().charAt(0) == '4' || toy.getSerialNumber().charAt(0) == '5' || toy.getSerialNumber().charAt(0) == '6') {
 					matchingTypes.add(toy.toString());
 				}
@@ -271,8 +277,7 @@ public class Manager implements Initializable{
 	}
 	
 	@FXML
-	void search(ActionEvent Event) {
-
+	void search(ActionEvent Event) {		
 		if (searchBySerialNumber.isSelected()) {
 			searchBySerialNumber(Event);
 		}
