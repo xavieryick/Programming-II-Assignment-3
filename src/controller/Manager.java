@@ -4,33 +4,41 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.Scanner;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import model.Toy;
 import model.Animals;
 import model.BoardGames;
 import model.Figures;
 import model.Puzzles;
 
-public class Manager {
+public class Manager implements Initializable{
 
 	private final String FILE_PATH = "res/toys.txt";
 	ArrayList<Toy> toyList;
 	Toy toy;
-
+	@FXML
+    ToggleGroup searchType;
 	@FXML
 	RadioButton searchBySerialNumber;
+	
 	@FXML
 	RadioButton searchByToyName;
 	@FXML
@@ -40,8 +48,10 @@ public class Manager {
 	TextField serialNumberInput;
 	@FXML
 	TextField toyNameInput;
+	
 	@FXML
-	ComboBox<String> toyTypeInput = new ComboBox<>();
+	private ChoiceBox<String> toyTypeInput;
+	private String toyTypes[] = {"Figure","Puzzle","Animal","Board Game"};
 	
 	@FXML
 	TextField newSerialNumber;
@@ -77,16 +87,31 @@ public class Manager {
 	
 	@FXML 
 	ListView<String> removeListView = new ListView<>();
-
+	
+	
 	public Manager() {
 		toyList = new ArrayList<>();
  		try {
 			loadData();
+//			initialize();
 		} 
 		catch (Exception e) {
-		System.out.println("this is line 87");
+		
 		}
 	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		toyTypeInput.getItems().addAll(toyTypes);
+		
+	}
+//	@FXML
+//    void initialize() {
+//		String toyTypes[] = {"Figure", "Puzzle", "Animal", "Board Game"};
+//    	toyTypeInput.getItems().addAll(toyTypes);
+//    	
+//    }
 	
 	@FXML
 	void save() {
@@ -247,6 +272,7 @@ public class Manager {
 	
 	@FXML
 	void search(ActionEvent Event) {
+
 		if (searchBySerialNumber.isSelected()) {
 			searchBySerialNumber(Event);
 		}
@@ -309,4 +335,6 @@ public class Manager {
 		}
 		removeListView.setItems(matchingNumbers);
 	}
+
+	
 }
