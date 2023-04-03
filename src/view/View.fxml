@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Manager">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Manager">
    <tabs>
       <Tab text="Search Toy">
          <content>
@@ -66,8 +66,8 @@
                   <TextField fx:id="newSerialNumber" layoutX="124.0" layoutY="80.0" prefHeight="26.0" prefWidth="100.0" />
                   <TextField fx:id="newToyName" layoutX="124.0" layoutY="120.0" prefHeight="26.0" prefWidth="100.0" />
                   <TextField fx:id="newToyBrand" layoutX="124.0" layoutY="160.0" prefHeight="26.0" prefWidth="100.0" />
-                  <TextField fx:id="newAvailableCount" layoutX="124.0" layoutY="240.0" prefHeight="26.0" prefWidth="100.0" />
-                  <TextField fx:id="newToyPrice" layoutX="124.0" layoutY="200.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newToyPrice" layoutX="124.0" layoutY="199.0" prefHeight="26.0" prefWidth="100.0" />
+                  <TextField fx:id="newAvailableCount" layoutX="124.0" layoutY="239.0" prefHeight="26.0" prefWidth="100.0" />
                   <TextField fx:id="newAppropriateAge" layoutX="124.0" layoutY="280.0" prefHeight="26.0" prefWidth="100.0" />
                   <Label layoutX="352.0" layoutY="61.0" text="Figure">
                      <font>
@@ -98,8 +98,8 @@
                   <Label layoutX="546.0" layoutY="321.0" text="Designers" />
                   <TextField fx:id="newAnimalMaterial" layoutX="616.0" layoutY="96.0" prefHeight="26.0" prefWidth="122.0" />
                   <TextField fx:id="newBoardGameMinCount" layoutX="645.0" layoutY="237.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField fx:id="newBoardGameDesigners" layoutX="645.0" layoutY="317.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField fx:id="newBoardGameMaxCount" layoutX="645.0" layoutY="277.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameMaxCount" layoutX="645.0" layoutY="276.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameDesigners" layoutX="645.0" layoutY="316.0" prefHeight="26.0" prefWidth="122.0" />
                   <ComboBox fx:id="newFigureClassification" layoutX="359.0" layoutY="96.0" prefWidth="122.0" />
                   <ComboBox fx:id="newPuzzleType" layoutX="359.0" layoutY="237.0" prefWidth="122.0" />
                   <ComboBox fx:id="newAnimalSize" layoutX="616.0" layoutY="136.0" prefWidth="122.0" />
@@ -113,7 +113,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ListView fx:id="removeListView" layoutX="308.0" layoutY="65.0" prefHeight="221.0" prefWidth="478.0" />
-                  <Button fx:id="removeToy" layoutX="516.0" layoutY="300.0" mnemonicParsing="false" onAction="#removeToy" text="Remove!" />
+                  <Button fx:id="removeToy" layoutX="552.0" layoutY="300.0" mnemonicParsing="false" onAction="#removeToy" text="Remove!" />
                   <Label layoutX="38.0" layoutY="166.0" text="Serial Number:" />
                   <TextField fx:id="removeSerialNumber" layoutX="137.0" layoutY="162.0" prefHeight="26.0" prefWidth="140.0" />
                   <Label layoutX="301.0" layoutY="14.0" text="Enter Toy Serial Number:">
@@ -121,6 +121,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <Button fx:id="searchRemove" layoutX="490.0" layoutY="300.0" mnemonicParsing="false" onAction="#removeToySearch" text="Search" />
                </children>
             </AnchorPane>
          </content>

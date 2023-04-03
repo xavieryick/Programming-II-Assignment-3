@@ -359,6 +359,7 @@ public class Manager implements Initializable{
 		
 		
 	}
+
 	
 	//this one gets called automatically after the search methods have been called 
 	void searchListHolder(ArrayList<Toy> results) {
@@ -419,7 +420,7 @@ public class Manager implements Initializable{
 	}
 	
 	@FXML
-	void removeToy(ActionEvent Event) {	
+	void removeToySearch(ActionEvent Event) {	
 		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
 		String serialNumber = removeSerialNumber.getText().trim();
 		for (Toy toy:toyList) {
@@ -431,5 +432,20 @@ public class Manager implements Initializable{
 		removeListView.setItems(matchingNumbers);
 	}
 
+	@FXML
+	void removeToy(ActionEvent Event) {
+//		for (Toy toy:toyList) {
+//			if (toy.getSerialNumber().equals(removeSerialNumber.getText().trim())) {
+//				toyList.remove(toy);
+//			}
+//		} this one dont work nice :(
+		for (int index = 0; index < toyList.size(); index++) {
+			if (toyList.get(index).getSerialNumber().equals(removeSerialNumber.getText().trim())) {
+				toyList.remove(index);
+			}
+		}
+		save();
+//		System.out.println("Ttst");
+	}
 	
 }
