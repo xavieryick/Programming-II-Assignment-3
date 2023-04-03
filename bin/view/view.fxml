@@ -34,9 +34,9 @@
                   <TextField fx:id="serialNumberInput" layoutX="127.0" layoutY="142.0" prefHeight="26.0" prefWidth="140.0" />
                   <TextField fx:id="toyNameInput" layoutX="127.0" layoutY="182.0" prefHeight="25.0" prefWidth="140.0" />
                   <Button fx:id="searchToys" layoutX="104.0" layoutY="267.0" mnemonicParsing="false" onAction="#search" text="Search" />
-                  <Button layoutX="175.0" layoutY="267.0" mnemonicParsing="false" text="Clear" />
+                  <Button fx:id="clearButton" layoutX="175.0" layoutY="267.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
                   <ListView fx:id="toyListView" layoutX="308.0" layoutY="65.0" prefHeight="221.0" prefWidth="478.0" />
-                  <Button fx:id="purchaseToy" layoutX="513.0" layoutY="300.0" mnemonicParsing="false" text="Purchase!" />
+                  <Button fx:id="purchaseToy" layoutX="513.0" layoutY="300.0" mnemonicParsing="false" onAction="#purchase" text="Purchase!" />
                   <ComboBox fx:id="toyTypeInput" layoutX="124.0" layoutY="222.0" prefWidth="150.0" />
                   <RadioButton fx:id="searchBySerialNumber" layoutX="34.0" layoutY="101.0" mnemonicParsing="false" selected="true" text="Serial Number">
                      <toggleGroup>

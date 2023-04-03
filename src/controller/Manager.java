@@ -36,8 +36,11 @@ public class Manager implements Initializable{
 	ArrayList<Toy> toyList;
 	Toy toy;
 	
-//	@FXML
-//	Button clearButton;
+	@FXML
+	Button searchToys;
+	
+	@FXML
+	Button clearButton;
 	
 	@FXML
 	RadioButton searchBySerialNumber;
@@ -103,6 +106,11 @@ public class Manager implements Initializable{
 	
 	@FXML 
 	ListView<String> removeListView = new ListView<>();
+	
+	//global variables 
+	int globalSelectedIndex;
+	
+	ArrayList<Toy> globalMatchingToys = new ArrayList<>();
 	
 	public Manager() {
  		try {
@@ -220,14 +228,22 @@ public class Manager implements Initializable{
 	@FXML
 	void searchBySerialNumber(ActionEvent Event) {	
 		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
+		ArrayList<Toy> matchingToys = new ArrayList<>();
 		String serialNumber = serialNumberInput.getText().trim();
 		for (Toy toy:toyList) {
 			String currentToySN = toy.getSerialNumber();
 			if (currentToySN.equals(serialNumber)) {
-				matchingNumbers.add(toy.toString());
+				matchingToys.add(toy); //object list
+				matchingNumbers.add(toy.toString()); //observable list
 			}
 		}
 		toyListView.setItems(matchingNumbers);
+		
+		//send list as array list of toy objects 
+		searchListHolder(matchingToys); //could get rid of this
+		
+		globalMatchingToys.clear();
+		globalMatchingToys = matchingToys;
 	}
 	
 	/**
@@ -237,6 +253,7 @@ public class Manager implements Initializable{
 	@FXML
 	void searchByToyName(ActionEvent Event) {
 		ObservableList<String> matchingNames = FXCollections.observableArrayList();
+		ArrayList<Toy> matchingToys = new ArrayList<>();
 		String toyName = toyNameInput.getText().trim().toLowerCase();
 		for (Toy toy:toyList) {
 			String currentToyName = toy.getToyName();		
@@ -245,6 +262,14 @@ public class Manager implements Initializable{
 			}
 		}
 		toyListView.setItems(matchingNames);
+		
+		//send list as array list of toy objects 
+				searchListHolder(matchingToys);
+				
+//				globalMatchingToys.clear();
+				//might have to try appending each toy in a for loop
+				
+				globalMatchingToys = matchingToys;
 	}
 	
 	/**
@@ -254,6 +279,7 @@ public class Manager implements Initializable{
 	@FXML
 	void searchByToyType(ActionEvent Event) {
 		ObservableList<String> matchingTypes = FXCollections.observableArrayList();
+		ArrayList<Toy> matchingToys = new ArrayList<>();
 		String toyType = toyTypeInput.getValue();
 		for (Toy toy:toyList) {
 			if (toyType.equals("Figure")) {
@@ -278,10 +304,17 @@ public class Manager implements Initializable{
 			}
 		}
 		toyListView.setItems(matchingTypes);
+		
+		//send list as array list of toy objects 
+				searchListHolder(matchingToys);
+				
+				globalMatchingToys.clear();
+				globalMatchingToys = matchingToys;
 	}
 	
 	@FXML
-	void search(ActionEvent Event) {		
+	void search(ActionEvent Event) {
+		System.out.println("Event is happening");
 		if (searchBySerialNumber.isSelected()) {
 			searchBySerialNumber(Event);
 		}
@@ -295,11 +328,55 @@ public class Manager implements Initializable{
 	
 	@FXML
 	void clear(ActionEvent Event) {
+		System.out.println("Event is happening");
 		//clearing SN
 		serialNumberInput.clear();
 		
 		//clearing toy name
 		toyNameInput.clear();
+	}
+	
+	@FXML 
+	void purchase(ActionEvent Event) {
+		System.out.println("purchase exists");
+		int selected;
+		
+		//gettng selected thing
+		selected = toyListView.getSelectionModel().getSelectedIndex();
+		System.out.println(selected);
+		
+		//setting it to the global variable
+		globalSelectedIndex = selected; //might delete
+		
+		//have to make another method that compares indexes of the two lists and removes the proper item
+		//also have to save it after each run 
+		
+		System.out.println(globalMatchingToys);
+		
+		//yanking result's available count 
+		int inventory = globalMatchingToys.get(selected).getAvailableCount();
+		System.out.println(inventory);
+		
+		
+	}
+	
+	//this one gets called automatically after the search methods have been called 
+	void searchListHolder(ArrayList<Toy> results) {
+		
+		
+		//global index can be reached 
+
+		
+	}
+	
+	void purchaseAction(ArrayList<Toy> results) {
+		//take global selected variable 
+		//call said item from toy with specified index
+		//deduct one from toy count and rewrite list 
+		
+		//yanking result's available count 
+		int inventory = results.get(globalSelectedIndex).getAvailableCount();
+		System.out.println(inventory);
 	}
 	
 	@FXML
