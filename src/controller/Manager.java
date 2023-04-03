@@ -23,6 +23,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import model.Toy;
 import model.Animals;
 import model.BoardGames;
@@ -34,7 +35,10 @@ public class Manager implements Initializable{
 	private final String FILE_PATH = "res/toys.txt";
 	ArrayList<Toy> toyList;
 	Toy toy;
-
+	
+//	@FXML
+//	Button clearButton;
+	
 	@FXML
 	RadioButton searchBySerialNumber;
 	@FXML
@@ -287,6 +291,15 @@ public class Manager implements Initializable{
 		else if (searchByToyType.isSelected()) {
 			searchByToyType(Event);
 		}
+	}
+	
+	@FXML
+	void clear(ActionEvent Event) {
+		//clearing SN
+		serialNumberInput.clear();
+		
+		//clearing toy name
+		toyNameInput.clear();
 	}
 	
 	@FXML
