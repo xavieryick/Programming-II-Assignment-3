@@ -229,21 +229,19 @@ public class Manager implements Initializable{
 	void searchBySerialNumber(ActionEvent Event) {	
 		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
 		ArrayList<Toy> matchingToys = new ArrayList<>();
+		globalMatchingToys.clear();
+		
 		String serialNumber = serialNumberInput.getText().trim();
 		for (Toy toy:toyList) {
 			String currentToySN = toy.getSerialNumber();
 			if (currentToySN.equals(serialNumber)) {
 				matchingToys.add(toy); //object list
+				globalMatchingToys.add(toy); //global list
 				matchingNumbers.add(toy.toString()); //observable list
 			}
 		}
 		toyListView.setItems(matchingNumbers);
 		
-		//send list as array list of toy objects 
-		searchListHolder(matchingToys); //could get rid of this
-		
-		globalMatchingToys.clear();
-		globalMatchingToys = matchingToys;
 	}
 	
 	/**
@@ -254,22 +252,19 @@ public class Manager implements Initializable{
 	void searchByToyName(ActionEvent Event) {
 		ObservableList<String> matchingNames = FXCollections.observableArrayList();
 		ArrayList<Toy> matchingToys = new ArrayList<>();
+		globalMatchingToys.clear();
+		
 		String toyName = toyNameInput.getText().trim().toLowerCase();
 		for (Toy toy:toyList) {
 			String currentToyName = toy.getToyName();		
 			if (currentToyName.toLowerCase().contains(toyName)) {
+				matchingToys.add(toy);
+				globalMatchingToys.add(toy); //global list
 				matchingNames.add(toy.toString());
 			}
 		}
 		toyListView.setItems(matchingNames);
 		
-		//send list as array list of toy objects 
-				searchListHolder(matchingToys);
-				
-//				globalMatchingToys.clear();
-				//might have to try appending each toy in a for loop
-				
-				globalMatchingToys = matchingToys;
 	}
 	
 	/**
@@ -280,41 +275,55 @@ public class Manager implements Initializable{
 	void searchByToyType(ActionEvent Event) {
 		ObservableList<String> matchingTypes = FXCollections.observableArrayList();
 		ArrayList<Toy> matchingToys = new ArrayList<>();
+		globalMatchingToys.clear();
+		
 		String toyType = toyTypeInput.getValue();
 		for (Toy toy:toyList) {
 			if (toyType.equals("Figure")) {
 				if (toy.getSerialNumber().charAt(0) == '0' || toy.getSerialNumber().charAt(0) == '1') {
+					
+					matchingToys.add(toy);
+					globalMatchingToys.add(toy); //global list
+					
 					matchingTypes.add(toy.toString());
+					
 				}
 			}
 			else if (toyType.equals("Animal")) {
 				if (toy.getSerialNumber().charAt(0) == '2' || toy.getSerialNumber().charAt(0) == '3') {
+					
+					matchingToys.add(toy);
+					globalMatchingToys.add(toy); //global list
+					
 					matchingTypes.add(toy.toString());
 				}
 			}
 			else if (toyType.equals("Puzzle")) {
 				if (toy.getSerialNumber().charAt(0) == '4' || toy.getSerialNumber().charAt(0) == '5' || toy.getSerialNumber().charAt(0) == '6') {
+					
+					matchingToys.add(toy);
+					globalMatchingToys.add(toy); //global list
+					
 					matchingTypes.add(toy.toString());
 				}
 			}
 			else if (toyType.equals("Board Game")) {
 				if (toy.getSerialNumber().charAt(0) == '7' || toy.getSerialNumber().charAt(0) == '8' || toy.getSerialNumber().charAt(0) == '9') {
+					
+					matchingToys.add(toy);
+					globalMatchingToys.add(toy); //global list
+					
 					matchingTypes.add(toy.toString());
 				}
 			}
 		}
 		toyListView.setItems(matchingTypes);
 		
-		//send list as array list of toy objects 
-				searchListHolder(matchingToys);
-				
-				globalMatchingToys.clear();
-				globalMatchingToys = matchingToys;
 	}
 	
 	@FXML
 	void search(ActionEvent Event) {
-		System.out.println("Event is happening");
+		System.out.println("Search event is happening");
 		if (searchBySerialNumber.isSelected()) {
 			searchBySerialNumber(Event);
 		}
@@ -328,7 +337,7 @@ public class Manager implements Initializable{
 	
 	@FXML
 	void clear(ActionEvent Event) {
-		System.out.println("Event is happening");
+		System.out.println("clear event is happening");
 		//clearing SN
 		serialNumberInput.clear();
 		
@@ -343,7 +352,7 @@ public class Manager implements Initializable{
 		
 		//gettng selected thing
 		selected = toyListView.getSelectionModel().getSelectedIndex();
-		System.out.println(selected);
+		System.out.println("The selcted index is: " + selected);
 		
 		//setting it to the global variable
 		globalSelectedIndex = selected; //might delete
@@ -351,34 +360,33 @@ public class Manager implements Initializable{
 		//have to make another method that compares indexes of the two lists and removes the proper item
 		//also have to save it after each run 
 		
-		System.out.println(globalMatchingToys);
+//		System.out.println("full matched list");
+//		System.out.println(globalMatchingToys);
 		
 		//yanking result's available count 
 		int inventory = globalMatchingToys.get(selected).getAvailableCount();
-		System.out.println(inventory);
+//		System.out.println(inventory);
+		
+		if(inventory > 0) {
+			String selectedSerialNumber = globalMatchingToys.get(selected).getSerialNumber();
+			for(int rewrite = 0; rewrite < toyList.size(); rewrite++) {
+				String activeToy = toyList.get(rewrite).getSerialNumber();
+				
+				if(selectedSerialNumber.equals(activeToy)) {
+					toyList.get(rewrite).setAvailableCount(inventory - 1);
+					
+					save();
+				}
+			}
+		}
+		else {
+			//label saying that we're out of an item
+			//purchase works on the condition that they picked something 
+		}
 		
 		
 	}
 
-	
-	//this one gets called automatically after the search methods have been called 
-	void searchListHolder(ArrayList<Toy> results) {
-		
-		
-		//global index can be reached 
-
-		
-	}
-	
-	void purchaseAction(ArrayList<Toy> results) {
-		//take global selected variable 
-		//call said item from toy with specified index
-		//deduct one from toy count and rewrite list 
-		
-		//yanking result's available count 
-		int inventory = results.get(globalSelectedIndex).getAvailableCount();
-		System.out.println(inventory);
-	}
 	
 	@FXML
 	void addToy(ActionEvent Event) {		
