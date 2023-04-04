@@ -8,22 +8,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
 import model.Toy;
 import model.Animals;
 import model.BoardGames;
@@ -38,10 +35,8 @@ public class Manager implements Initializable{
 	
 	@FXML
 	Button searchToys;
-	
 	@FXML
 	Button clearButton;
-	
 	@FXML
 	RadioButton searchBySerialNumber;
 	@FXML
@@ -50,17 +45,14 @@ public class Manager implements Initializable{
 	RadioButton searchByToyType;
 	@FXML
 	ToggleGroup searchTypes;
-	
 	@FXML
 	TextField serialNumberInput;
 	@FXML
 	TextField toyNameInput;
-	
 	@FXML
 	ComboBox<String> toyTypeInput;
 	@FXML
 	String[] toyTypes = {"Figure","Animal","Puzzle","Board Game"};
-	
 	@FXML
 	TextField newSerialNumber;
 	@FXML
@@ -73,37 +65,30 @@ public class Manager implements Initializable{
 	TextField newAvailableCount;
 	@FXML
 	TextField newAppropriateAge;
-	
 	@FXML
 	ComboBox<String> newFigureClassification;
 	@FXML
 	String[] figureClassifications = {"Action","Doll","Historic"};
-	
 	@FXML
 	ComboBox<String> newPuzzleType;
 	@FXML
 	String[] puzzleTypes = {"Mechanical","Cryptic","Logic","Trivia","Riddle"};
-
 	@FXML
 	TextField newAnimalMaterial;
 	@FXML
 	ComboBox<String> newAnimalSize;
 	@FXML
 	String[] animalSizes = {"Small","Medium","Large"};
-	
 	@FXML
 	TextField newBoardGameMinCount;
 	@FXML
 	TextField newBoardGameMaxCount;
 	@FXML
 	TextField newBoardGameDesigners;
-	
 	@FXML 
 	TextField removeSerialNumber;
-	
 	@FXML
 	ListView<String> toyListView = new ListView<>();
-	
 	@FXML 
 	ListView<String> removeListView = new ListView<>();
 	
@@ -111,6 +96,10 @@ public class Manager implements Initializable{
 	int globalSelectedIndex;
 	
 	ArrayList<Toy> globalMatchingToys = new ArrayList<>();
+	@FXML
+	ObservableList<String> errorMessage = FXCollections.observableArrayList();
+	@FXML
+	Label errorLabel;
 	
 	public Manager() {
  		try {
@@ -231,17 +220,21 @@ public class Manager implements Initializable{
 		ArrayList<Toy> matchingToys = new ArrayList<>();
 		globalMatchingToys.clear();
 		
-		String serialNumber = serialNumberInput.getText().trim();
-		for (Toy toy:toyList) {
-			String currentToySN = toy.getSerialNumber();
-			if (currentToySN.equals(serialNumber)) {
-				matchingToys.add(toy); //object list
-				globalMatchingToys.add(toy); //global list
-				matchingNumbers.add(toy.toString()); //observable list
+		try {
+			String serialNumber = serialNumberInput.getText().trim();
+			for (Toy toy:toyList) {
+				String currentToySN = toy.getSerialNumber();
+				if (currentToySN.equals(serialNumber)) {
+					matchingToys.add(toy); //object list
+					globalMatchingToys.add(toy); //global list
+					matchingNumbers.add(toy.toString()); //observable list
+				}
 			}
+			toyListView.setItems(matchingNumbers);
 		}
-		toyListView.setItems(matchingNumbers);
-		
+		catch (Exception e) {
+			errorLabel.setText("There was an error");
+		}
 	}
 	
 	/**
@@ -254,17 +247,21 @@ public class Manager implements Initializable{
 		ArrayList<Toy> matchingToys = new ArrayList<>();
 		globalMatchingToys.clear();
 		
-		String toyName = toyNameInput.getText().trim().toLowerCase();
-		for (Toy toy:toyList) {
-			String currentToyName = toy.getToyName();		
-			if (currentToyName.toLowerCase().contains(toyName)) {
-				matchingToys.add(toy);
-				globalMatchingToys.add(toy); //global list
-				matchingNames.add(toy.toString());
+		try {
+			String toyName = toyNameInput.getText().trim().toLowerCase();
+			for (Toy toy:toyList) {
+				String currentToyName = toy.getToyName();		
+				if (currentToyName.toLowerCase().contains(toyName)) {
+					matchingToys.add(toy);
+					globalMatchingToys.add(toy); //global list
+					matchingNames.add(toy.toString());
+				}
 			}
+			toyListView.setItems(matchingNames);
 		}
-		toyListView.setItems(matchingNames);
-		
+		catch (Exception e) {
+			errorLabel.setText("There was an error");
+		}
 	}
 	
 	/**
@@ -277,53 +274,57 @@ public class Manager implements Initializable{
 		ArrayList<Toy> matchingToys = new ArrayList<>();
 		globalMatchingToys.clear();
 		
-		String toyType = toyTypeInput.getValue();
-		for (Toy toy:toyList) {
-			if (toyType.equals("Figure")) {
-				if (toy.getSerialNumber().charAt(0) == '0' || toy.getSerialNumber().charAt(0) == '1') {
-					
-					matchingToys.add(toy);
-					globalMatchingToys.add(toy); //global list
-					
-					matchingTypes.add(toy.toString());
-					
+		try {
+			String toyType = toyTypeInput.getValue();
+			for (Toy toy:toyList) {
+				if (toyType.equals("Figure")) {
+					if (toy.getSerialNumber().charAt(0) == '0' || toy.getSerialNumber().charAt(0) == '1') {
+						
+						matchingToys.add(toy);
+						globalMatchingToys.add(toy); //global list
+						
+						matchingTypes.add(toy.toString());
+						
+					}
+				}
+				else if (toyType.equals("Animal")) {
+					if (toy.getSerialNumber().charAt(0) == '2' || toy.getSerialNumber().charAt(0) == '3') {
+						
+						matchingToys.add(toy);
+						globalMatchingToys.add(toy); //global list
+						
+						matchingTypes.add(toy.toString());
+					}
+				}
+				else if (toyType.equals("Puzzle")) {
+					if (toy.getSerialNumber().charAt(0) == '4' || toy.getSerialNumber().charAt(0) == '5' || toy.getSerialNumber().charAt(0) == '6') {
+						
+						matchingToys.add(toy);
+						globalMatchingToys.add(toy); //global list
+						
+						matchingTypes.add(toy.toString());
+					}
+				}
+				else if (toyType.equals("Board Game")) {
+					if (toy.getSerialNumber().charAt(0) == '7' || toy.getSerialNumber().charAt(0) == '8' || toy.getSerialNumber().charAt(0) == '9') {
+						
+						matchingToys.add(toy);
+						globalMatchingToys.add(toy); //global list
+						
+						matchingTypes.add(toy.toString());
+					}
 				}
 			}
-			else if (toyType.equals("Animal")) {
-				if (toy.getSerialNumber().charAt(0) == '2' || toy.getSerialNumber().charAt(0) == '3') {
-					
-					matchingToys.add(toy);
-					globalMatchingToys.add(toy); //global list
-					
-					matchingTypes.add(toy.toString());
-				}
-			}
-			else if (toyType.equals("Puzzle")) {
-				if (toy.getSerialNumber().charAt(0) == '4' || toy.getSerialNumber().charAt(0) == '5' || toy.getSerialNumber().charAt(0) == '6') {
-					
-					matchingToys.add(toy);
-					globalMatchingToys.add(toy); //global list
-					
-					matchingTypes.add(toy.toString());
-				}
-			}
-			else if (toyType.equals("Board Game")) {
-				if (toy.getSerialNumber().charAt(0) == '7' || toy.getSerialNumber().charAt(0) == '8' || toy.getSerialNumber().charAt(0) == '9') {
-					
-					matchingToys.add(toy);
-					globalMatchingToys.add(toy); //global list
-					
-					matchingTypes.add(toy.toString());
-				}
-			}
+			toyListView.setItems(matchingTypes);
 		}
-		toyListView.setItems(matchingTypes);
-		
+		catch (Exception e) {
+			errorLabel.setText("There was an error");
+		}
 	}
 	
 	@FXML
 	void search(ActionEvent Event) {
-		System.out.println("Search event is happening");
+//		System.out.println("Search event is happening"); debug
 		if (searchBySerialNumber.isSelected()) {
 			searchBySerialNumber(Event);
 		}
@@ -337,7 +338,7 @@ public class Manager implements Initializable{
 	
 	@FXML
 	void clear(ActionEvent Event) {
-		System.out.println("clear event is happening");
+//		System.out.println("clear event is happening"); debug
 		//clearing SN
 		serialNumberInput.clear();
 		
@@ -347,12 +348,12 @@ public class Manager implements Initializable{
 	
 	@FXML 
 	void purchase(ActionEvent Event) {
-		System.out.println("purchase exists");
+//		System.out.println("purchase exists"); debug
 		int selected;
 		
 		//gettng selected thing
 		selected = toyListView.getSelectionModel().getSelectedIndex();
-		System.out.println("The selcted index is: " + selected);
+//		System.out.println("The selcted index is: " + selected); debug
 		
 		//setting it to the global variable
 		globalSelectedIndex = selected; //might delete
@@ -389,55 +390,65 @@ public class Manager implements Initializable{
 
 	
 	@FXML
-	void addToy(ActionEvent Event) {		
-		String serialNumber = newSerialNumber.getText().trim();
-		String toyName = newToyName.getText().trim();
-		String toyBrand = newToyBrand.getText().trim();
-		double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
-		int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
-		int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim());
-		
-		String figureClassification = newFigureClassification.getValue();
-		
-		String puzzleType = newPuzzleType.getValue();
-		
-		String animalMaterial = newAnimalMaterial.getText().trim();
-		String animalSize = newAnimalSize.getValue();
-		
-		int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
-		int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
-		String boardGameDesigners = newBoardGameDesigners.getText().trim();
-		
-		if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
-			Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
-			toyList.add(addToy);
+	void addToy(ActionEvent Event) {
+		try {
+			String serialNumber = newSerialNumber.getText().trim();
+			String toyName = newToyName.getText().trim();
+			String toyBrand = newToyBrand.getText().trim();
+			double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
+			int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
+			int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim());
+			
+			String figureClassification = newFigureClassification.getValue();
+			
+			String puzzleType = newPuzzleType.getValue();
+			
+			String animalMaterial = newAnimalMaterial.getText().trim();
+			String animalSize = newAnimalSize.getValue();
+			
+			int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
+			int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
+			String boardGameDesigners = newBoardGameDesigners.getText().trim();
+			
+			if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
+				Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
+				toyList.add(addToy);
+			}
+			else if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
+				Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
+				toyList.add(addToy);
+			}
+			else if (serialNumber.charAt(0) == '4' || serialNumber.charAt(0) == '5' || serialNumber.charAt(0) == '6') {
+				Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
+				toyList.add(addToy);
+			}
+			else if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
+				Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
+				toyList.add(addToy);
+			}
+			save();
 		}
-		else if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
-			Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
-			toyList.add(addToy);
+		catch (Exception e) {
+			errorLabel.setText("There was an error");
 		}
-		else if (serialNumber.charAt(0) == '4' || serialNumber.charAt(0) == '5' || serialNumber.charAt(0) == '6') {
-			Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
-			toyList.add(addToy);
-		}
-		else if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
-			Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
-			toyList.add(addToy);
-		}
-		save();
 	}
 	
 	@FXML
 	void removeToySearch(ActionEvent Event) {	
-		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
-		String serialNumber = removeSerialNumber.getText().trim();
-		for (Toy toy:toyList) {
-			String currentToySN = toy.getSerialNumber();
-			if (currentToySN.equals(serialNumber)) {
-				matchingNumbers.add(toy.toString());
+		try {
+			ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
+			String serialNumber = removeSerialNumber.getText().trim();
+			for (Toy toy:toyList) {
+				String currentToySN = toy.getSerialNumber();
+				if (currentToySN.equals(serialNumber)) {
+					matchingNumbers.add(toy.toString());
+				}
 			}
+			removeListView.setItems(matchingNumbers);
 		}
-		removeListView.setItems(matchingNumbers);
+		catch (Exception e) {
+			errorLabel.setText("There was an error");
+		}
 	}
 
 	@FXML
@@ -447,12 +458,17 @@ public class Manager implements Initializable{
 //				toyList.remove(toy);
 //			}
 //		} this one dont work nice :(
-		for (int index = 0; index < toyList.size(); index++) {
-			if (toyList.get(index).getSerialNumber().equals(removeSerialNumber.getText().trim())) {
-				toyList.remove(index);
+		try {
+			for (int index = 0; index < toyList.size(); index++) {
+				if (toyList.get(index).getSerialNumber().equals(removeSerialNumber.getText().trim())) {
+					toyList.remove(index);
+				}
 			}
+			save();
 		}
-		save();
+		catch (Exception e) {
+			errorLabel.setText("There was an error");
+		}
 //		System.out.println("Ttst");
 	}
 	

@@ -44,6 +44,7 @@
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="searchByToyName" layoutX="137.0" layoutY="101.0" mnemonicParsing="false" text="Toy Name" toggleGroup="$searchTypes" />
                   <RadioButton fx:id="searchByToyType" layoutX="218.0" layoutY="101.0" mnemonicParsing="false" text="Toy Type" toggleGroup="$searchTypes" />
+                  <Label fx:id="errorLabel" layoutX="492.0" layoutY="332.0" prefHeight="18.0" prefWidth="109.0" />
                </children>
             </AnchorPane>
          </content>
@@ -69,41 +70,42 @@
                   <TextField fx:id="newToyPrice" layoutX="124.0" layoutY="199.0" prefHeight="26.0" prefWidth="100.0" />
                   <TextField fx:id="newAvailableCount" layoutX="124.0" layoutY="239.0" prefHeight="26.0" prefWidth="100.0" />
                   <TextField fx:id="newAppropriateAge" layoutX="124.0" layoutY="280.0" prefHeight="26.0" prefWidth="100.0" />
-                  <Label layoutX="352.0" layoutY="61.0" text="Figure">
+                  <Label layoutX="352.0" layoutY="79.0" text="Figure">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="281.0" layoutY="100.0" text="Classification" />
-                  <Label layoutX="352.0" layoutY="202.0" text="Puzzle">
+                  <Label layoutX="281.0" layoutY="118.0" text="Classification" />
+                  <Label layoutX="352.0" layoutY="192.0" text="Puzzle">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="302.0" layoutY="241.0" text="Type" />
-                  <Label layoutX="605.0" layoutY="61.0" text="Animal">
+                  <Label layoutX="302.0" layoutY="231.0" text="Type" />
+                  <Label layoutX="605.0" layoutY="79.0" text="Animal">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="550.0" layoutY="100.0" text="Material" />
-                  <Label layoutX="562.0" layoutY="140.0" text="Size" />
-                  <Label layoutX="586.0" layoutY="202.0" text="Board Game">
+                  <Label layoutX="550.0" layoutY="118.0" text="Material" />
+                  <Label layoutX="562.0" layoutY="158.0" text="Size" />
+                  <Label layoutX="586.0" layoutY="192.0" text="Board Game">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="512.0" layoutY="241.0" text="Minimum Player Count" />
-                  <Label layoutX="511.0" layoutY="281.0" text="Maximum Player Count" />
-                  <Label layoutX="546.0" layoutY="321.0" text="Designers" />
-                  <TextField fx:id="newAnimalMaterial" layoutX="616.0" layoutY="96.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField fx:id="newBoardGameMinCount" layoutX="645.0" layoutY="237.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField fx:id="newBoardGameMaxCount" layoutX="645.0" layoutY="276.0" prefHeight="26.0" prefWidth="122.0" />
-                  <TextField fx:id="newBoardGameDesigners" layoutX="645.0" layoutY="316.0" prefHeight="26.0" prefWidth="122.0" />
-                  <ComboBox fx:id="newFigureClassification" layoutX="359.0" layoutY="96.0" prefWidth="122.0" />
-                  <ComboBox fx:id="newPuzzleType" layoutX="359.0" layoutY="237.0" prefWidth="122.0" />
-                  <ComboBox fx:id="newAnimalSize" layoutX="616.0" layoutY="136.0" prefWidth="122.0" />
-                  <Button layoutX="379.0" layoutY="317.0" mnemonicParsing="false" onAction="#addToy" text="Add!" />
+                  <Label layoutX="512.0" layoutY="231.0" text="Minimum Player Count" />
+                  <Label layoutX="511.0" layoutY="271.0" text="Maximum Player Count" />
+                  <Label layoutX="546.0" layoutY="311.0" text="Designers" />
+                  <TextField fx:id="newAnimalMaterial" layoutX="616.0" layoutY="114.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameMinCount" layoutX="645.0" layoutY="227.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameMaxCount" layoutX="645.0" layoutY="266.0" prefHeight="26.0" prefWidth="122.0" />
+                  <TextField fx:id="newBoardGameDesigners" layoutX="645.0" layoutY="306.0" prefHeight="26.0" prefWidth="122.0" />
+                  <ComboBox fx:id="newFigureClassification" layoutX="359.0" layoutY="114.0" prefWidth="122.0" />
+                  <ComboBox fx:id="newPuzzleType" layoutX="359.0" layoutY="227.0" prefWidth="122.0" />
+                  <ComboBox fx:id="newAnimalSize" layoutX="616.0" layoutY="154.0" prefWidth="122.0" />
+                  <Button layoutX="379.0" layoutY="300.0" mnemonicParsing="false" onAction="#addToy" text="Add!" />
+                  <Label fx:id="errorLabel1" layoutX="345.0" layoutY="332.0" prefHeight="18.0" prefWidth="109.0" />
                </children>
             </AnchorPane>
          </content>
@@ -122,6 +124,7 @@
                      </font>
                   </Label>
                   <Button fx:id="searchRemove" layoutX="490.0" layoutY="300.0" mnemonicParsing="false" onAction="#removeToySearch" text="Search" />
+                  <Label fx:id="errorLabel2" layoutX="497.0" layoutY="332.0" prefHeight="18.0" prefWidth="109.0" />
                </children>
             </AnchorPane>
          </content>
