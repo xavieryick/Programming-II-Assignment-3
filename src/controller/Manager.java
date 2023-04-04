@@ -27,82 +27,89 @@ import model.BoardGames;
 import model.Figures;
 import model.Puzzles;
 
+/**
+ * This class contains all of the methods needed and manages the program
+ * @author xavie
+ *
+ */
 public class Manager implements Initializable{
 
-	private final String FILE_PATH = "res/toys.txt";
-	ArrayList<Toy> toyList;
+	//database file
+	private final String FILE_PATH = "res/toys.txt"; 
+
+	//initializes toy list
+	ArrayList<Toy> toyList; 
+	
+	//initializes toy type
 	Toy toy;
 	
-	@FXML
-	Button searchToys;
-	@FXML
-	Button clearButton;
-	@FXML
+	@FXML //search by serial number radio button 
 	RadioButton searchBySerialNumber;
-	@FXML
+	@FXML //search by toy name radio button
 	RadioButton searchByToyName;
-	@FXML
+	@FXML //search by toy type radio button
 	RadioButton searchByToyType;
-	@FXML
+	@FXML //adds all radio buttons to a single group
 	ToggleGroup searchTypes;
-	@FXML
+	
+	@FXML //input field on search for serial number
 	TextField serialNumberInput;
-	@FXML
+	@FXML //input field on search for toy name
 	TextField toyNameInput;
-	@FXML
+	@FXML //combobox on search for toy types
 	ComboBox<String> toyTypeInput;
-	@FXML
+	@FXML // all toy types added to toyTypeInput
 	String[] toyTypes = {"Figure","Animal","Puzzle","Board Game"};
-	@FXML
+	
+	@FXML // serial number input for add toy
 	TextField newSerialNumber;
-	@FXML
+	@FXML // toy name input for add toy
 	TextField newToyName;
-	@FXML
+	@FXML // toy brand input for add toy
 	TextField newToyBrand;
-	@FXML
+	@FXML // toy price input for add toy
 	TextField newToyPrice;
-	@FXML
+	@FXML // available count for add toy
 	TextField newAvailableCount;
-	@FXML
+	@FXML // appropriate age for add toy
 	TextField newAppropriateAge;
-	@FXML
+	@FXML // figure classification for add toy
 	ComboBox<String> newFigureClassification;
-	@FXML
+	@FXML // all figure classifications for newFigureClassification
 	String[] figureClassifications = {"Action","Doll","Historic"};
-	@FXML
+	@FXML // puzzle type for add toy
 	ComboBox<String> newPuzzleType;
-	@FXML
+	@FXML // all puzzle types for newPuzzleType
 	String[] puzzleTypes = {"Mechanical","Cryptic","Logic","Trivia","Riddle"};
-	@FXML
+	@FXML // animal material for add toy
 	TextField newAnimalMaterial;
-	@FXML
+	@FXML // animal size for add toy
 	ComboBox<String> newAnimalSize;
-	@FXML
+	@FXML // all animal sizes for newAnimal size
 	String[] animalSizes = {"Small","Medium","Large"};
-	@FXML
+	@FXML // board game minimum player count for add toy
 	TextField newBoardGameMinCount;
-	@FXML
+	@FXML // board game maximum player count for add toy
 	TextField newBoardGameMaxCount;
-	@FXML
+	@FXML // board game designers for add toy
 	TextField newBoardGameDesigners;
-	@FXML 
+	@FXML // serial number used for remove method
 	TextField removeSerialNumber;
-	@FXML
+	@FXML // initializes the toy ListView
 	ListView<String> toyListView = new ListView<>();
-	@FXML 
+	@FXML // initializes the remove ListView
 	ListView<String> removeListView = new ListView<>();
 	
 	//global variables 
 	int globalSelectedIndex;
 	
+	// initializes matching toy array list
 	ArrayList<Toy> globalMatchingToys = new ArrayList<>();
-	@FXML
-	ObservableList<String> errorMessage = FXCollections.observableArrayList();
-	@FXML
+	@FXML // error label for search
 	Label errorLabel; //for welcome screen
-	@FXML
+	@FXML // error label for add toys
 	Label errorLabel2; //for add toys 
-	@FXML
+	@FXML // error label for remove toys
 	Label errorLabel3; //for remove toys
 	
 	public Manager() {
@@ -114,6 +121,9 @@ public class Manager implements Initializable{
 		}
 	}
 	
+	/**
+	 * This method initializes the program, loads the data and adds input selections to the ComboBoxes
+	 */
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		toyList = new ArrayList<>();
@@ -124,6 +134,9 @@ public class Manager implements Initializable{
 		newAnimalSize.getItems().addAll(animalSizes);
     }
 	
+	/**
+	 * This method saves the information to the database file
+	 */
 	@FXML
 	void save() {
 		File db = new File(FILE_PATH);
@@ -140,6 +153,9 @@ public class Manager implements Initializable{
 		}
 	}
 	
+	/**
+	 * This method loads the information from the database file
+	 */
 	@FXML
 	void loadData() {
 		File db = new File(FILE_PATH);
@@ -215,8 +231,8 @@ public class Manager implements Initializable{
 	}
 	
 	/**
-	 * sorts through toyList and pulls toy if inputSN and toySN match
-	 * @param serialNumber
+	 * this method sorts through toyList and pulls toy if inputSN and toySN match
+	 * @param serialNumber user's given serial number
 	 */
 	@FXML
 	void searchBySerialNumber(ActionEvent Event) {	
@@ -244,8 +260,8 @@ public class Manager implements Initializable{
 	}
 	
 	/**
-	 * sorts through toyList and pulls toy if inputName in toyName
-	 * @param searchToyName
+	 * this method sorts through toyList and pulls toy if inputName in toyName
+	 * @param searchToyName user's given toy name
 	 */
 	@FXML
 	void searchByToyName(ActionEvent Event) {
@@ -274,8 +290,8 @@ public class Manager implements Initializable{
 	}
 	
 	/**
-	 * sorts throught toyList and pulls if inputType and toyType match
-	 * @param toyType
+	 * this method sorts through toyList and pulls the toy if inputType and toyType match
+	 * @param toyType user's given toy type
 	 */
 	@FXML
 	void searchByToyType(ActionEvent Event) {
@@ -334,6 +350,10 @@ public class Manager implements Initializable{
 		}
 	}
 	
+	/**
+	 * This method searches for toys based on which radio button is selected
+	 * @param Event
+	 */
 	@FXML
 	void search(ActionEvent Event) {
 //		System.out.println("Search event is happening"); debug
@@ -348,6 +368,10 @@ public class Manager implements Initializable{
 		}
 	}
 	
+	/**
+	 * This method will clear the text boxes
+	 * @param Event
+	 */
 	@FXML
 	void clear(ActionEvent Event) {
 //		System.out.println("clear event is happening"); debug
@@ -358,6 +382,10 @@ public class Manager implements Initializable{
 		toyNameInput.clear();
 	}
 	
+	/**
+	 * This method will purchase an item if it is selected from the ListView
+	 * @param Event
+	 */
 	@FXML 
 	void purchase(ActionEvent Event) {
 //		System.out.println("purchase exists"); debug
@@ -401,51 +429,133 @@ public class Manager implements Initializable{
 		
 	}
 
-	
+	/**
+	 * This method will add a toy that uses the user's given inputs 
+	 * @param Event
+	 */
 	@FXML
-	void addToy(ActionEvent Event) {
+	void addToy(ActionEvent Event) {		
 		try {
 			String serialNumber = newSerialNumber.getText().trim();
-			String toyName = newToyName.getText().trim();
-			String toyBrand = newToyBrand.getText().trim();
-			double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
-			int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
-			int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim());
-			
-			String figureClassification = newFigureClassification.getValue();
-			
-			String puzzleType = newPuzzleType.getValue();
-			
-			String animalMaterial = newAnimalMaterial.getText().trim();
-			String animalSize = newAnimalSize.getValue();
-			
-			int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
-			int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
-			String boardGameDesigners = newBoardGameDesigners.getText().trim();
-			
-			if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
-				Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
-				toyList.add(addToy);
+			if (serialNumber.length() != 10) { // length of 10
+				throw new Exception();
 			}
-			else if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
-				Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
-				toyList.add(addToy);
-			}
-			else if (serialNumber.charAt(0) == '4' || serialNumber.charAt(0) == '5' || serialNumber.charAt(0) == '6') {
-				Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
-				toyList.add(addToy);
-			}
-			else if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
-				Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
-				toyList.add(addToy);
-			}
-			save();
-		}
-		catch (Exception e) {
-			errorLabel2.setText("Please enter proper information!");
+			try {
+				long validSN = Long.parseLong(serialNumber); // checks for non-numbers
+				try {
+					String toyName = newToyName.getText().trim();
+					if (toyName.length() == 0) {
+						throw new Exception();
+					}
+					try {
+						String toyBrand = newToyBrand.getText().trim();
+						if (toyBrand.length() == 0) {
+							throw new Exception();
+						}
+						try {
+							double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
+							try {
+								int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
+								try {
+									int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim()); // works to here
+									try {
+										if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
+											try {
+												String figureClassification = newFigureClassification.getValue();
+												if (figureClassification == null) {
+													throw new Exception();
+												}
+												Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
+												toyList.add(addToy);
+												save();
+											} catch (Exception e) {
+												errorLabel2.setText("Please select a figure classification");
+											}
+										}
+										
+										if (serialNumber.charAt(0) == '4' || serialNumber.charAt(0) == '5' || serialNumber.charAt(0) == '6') {
+											try {
+												String puzzleType = newPuzzleType.getValue();
+												if (puzzleType == null) {
+													throw new Exception();
+												}
+												Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
+												toyList.add(addToy);
+												save();
+											} catch (Exception e) {
+												errorLabel2.setText("Please select a puzzle type");
+											}
+										}
+										
+										if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
+											try {
+												String animalMaterial = newAnimalMaterial.getText().trim();
+												try {
+													String animalSize = newAnimalSize.getValue();
+													if (animalSize == null) {
+														throw new Exception();
+													}
+													Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
+													toyList.add(addToy);
+													save();
+												} catch (Exception e) {
+													errorLabel2.setText("Please select an animal size");
+												}
+											} catch (Exception e) {
+												errorLabel2.setText("Please enter a valid animal material");
+											}
+										}
+										
+										if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
+											try {
+												int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
+												try {
+													int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
+													try {
+														String boardGameDesigners = newBoardGameDesigners.getText().trim();
+														Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
+														toyList.add(addToy);
+														save();
+													} catch (Exception e) {
+														errorLabel2.setText("Please enter a valid board game designer");
+													}
+												} catch (Exception e) {
+													errorLabel2.setText("Please enter a valid board game maximum player count");
+												}
+											} catch (Exception e) {
+												errorLabel2.setText("Please enter a valid board game minimum player count");
+											}
+										}
+									} catch (Exception e) {
+										// checking for first digit, does this need anything?
+									}
+								} catch (Exception e) {
+									errorLabel2.setText("Please enter a valid appropriate age");
+								}
+							} catch (Exception e) {
+								errorLabel2.setText("Please enter a valid available count");
+							}
+						} catch (Exception e) {
+							errorLabel2.setText("Please enter a valid toy price");
+						}
+					} catch (Exception e) {
+						errorLabel2.setText("Please enter a valid toy brand");	
+					}
+				} catch (Exception e) {
+					errorLabel2.setText("Please enter a valid toy name");
+				}
+			} catch (Exception e) {
+				errorLabel2.setText("Please enter a serial number with only numbers");
+			}	
+		} catch (Exception e) {
+			errorLabel2.setText("Please enter a serial number with 10 digits");
 		}
 	}
 	
+	/**
+	 * This method will search for a toy that matches the user's given serial number
+	 * @param Event
+	 */
 	@FXML
 	void removeToySearch(ActionEvent Event) {	
 		try {
@@ -466,7 +576,11 @@ public class Manager implements Initializable{
 			errorLabel3.setText("There was an error");
 		}
 	}
-
+	
+	/**
+	 * This method will remove a toy that matches the user's given serial number
+	 * @param Event
+	 */
 	@FXML
 	void removeToy(ActionEvent Event) {
 //		for (Toy toy:toyList) {
