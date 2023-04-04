@@ -19,9 +19,9 @@
 6045331143;Computer puzzle game;Game Survival;98.77;12;4;T
 5645765685;Ball-in-a-maze puzzle;Game Zombie;206.65;9;2;C
 8947640910;Exploding Kittens;Game Pixel;73.07;8;3;2-4;Haniya Woodley,Ruairidh Larsen
-1167480102;Transformers;Game Zombie;9.41;10;9;H
+1167480102;Transformers;Game Zombie;9.41;9;9;H
 9258568559;Jenga;Game Reboot;49.34;10;7;2-7;Maryam Mcdonnell,Shanaya Walter
-2804598463;Kangaroo;Gamefluent;289.37;14;6;Wooden;S
+2804598463;Kangaroo;Gamefluent;289.37;13;6;Wooden;S
 5239019250;Nob Yoshigahara Puzzle Design Competition;Game Zombie;67.2;5;3;M
 1989637627;Abraham Lincoln;Game Throne;60.1;5;7;H
 5446463966;Rubik's Magic;Game Sensor;15.71;7;2;C

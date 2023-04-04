@@ -44,7 +44,7 @@
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="searchByToyName" layoutX="137.0" layoutY="101.0" mnemonicParsing="false" text="Toy Name" toggleGroup="$searchTypes" />
                   <RadioButton fx:id="searchByToyType" layoutX="218.0" layoutY="101.0" mnemonicParsing="false" text="Toy Type" toggleGroup="$searchTypes" />
-                  <Label fx:id="errorLabel" layoutX="492.0" layoutY="332.0" prefHeight="18.0" prefWidth="109.0" />
+                  <Label fx:id="errorLabel" alignment="CENTER" layoutX="375.0" layoutY="331.0" prefHeight="18.0" prefWidth="344.0" textAlignment="CENTER" />
                </children>
             </AnchorPane>
          </content>

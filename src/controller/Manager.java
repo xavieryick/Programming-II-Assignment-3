@@ -103,6 +103,9 @@ public class Manager implements Initializable{
 	//global variables 
 	int globalSelectedIndex;
 	
+	ObservableList<String> globalNoResults = FXCollections.observableArrayList("We couldn't find what you're looking for!");
+	
+	
 	// initializes matching toy array list
 	ArrayList<Toy> globalMatchingToys = new ArrayList<>();
 	@FXML // error label for search
@@ -252,7 +255,17 @@ public class Manager implements Initializable{
 					matchingNumbers.add(toy.toString()); //observable list
 				}
 			}
-			toyListView.setItems(matchingNumbers);
+			
+			// checking to see if we actually found anything
+			if (matchingToys.size() == 0) {
+				// this one opens the rabbit hole of user validation
+//				toyListView.setItems(globalNoResults);
+				toyListView.getItems().clear();
+				errorLabel.setText("We couldn't find what you're looking for!");
+			}
+			else {
+				toyListView.setItems(matchingNumbers);
+			}
 		}
 		catch (Exception e) {
 			errorLabel.setText("There was an error");
@@ -274,7 +287,14 @@ public class Manager implements Initializable{
 			errorLabel.setText("");
 			
 			String toyName = toyNameInput.getText().trim().toLowerCase();
-			for (Toy toy:toyList) {
+			
+			//make sure user puts in a toy name
+			if (toyName.equals(null) || toyName.isEmpty()) {
+				errorLabel.setText("Please enter a name and search again!");
+			}
+			else {
+				
+				for (Toy toy:toyList) {
 				String currentToyName = toy.getToyName();		
 				if (currentToyName.toLowerCase().contains(toyName)) {
 					matchingToys.add(toy);
@@ -282,7 +302,22 @@ public class Manager implements Initializable{
 					matchingNames.add(toy.toString());
 				}
 			}
-			toyListView.setItems(matchingNames);
+//			toyListView.setItems(matchingNames);
+			
+			// checking to see if we actually found anything
+				if (matchingToys.size() == 0) {
+					// this one opens the rabbit hole of user validation
+//							toyListView.setItems(globalNoResults);
+					toyListView.getItems().clear();
+					errorLabel.setText("We couldn't find what you're looking for!");
+				}
+				else {
+					toyListView.setItems(matchingNames);
+				}
+				
+			}
+			
+			
 		}
 		catch (Exception e) {
 			errorLabel.setText("There was an error");
@@ -375,11 +410,17 @@ public class Manager implements Initializable{
 	@FXML
 	void clear(ActionEvent Event) {
 //		System.out.println("clear event is happening"); debug
+		
+		//clearing error label
+		errorLabel.setText("");
 		//clearing SN
 		serialNumberInput.clear();
 		
 		//clearing toy name
 		toyNameInput.clear();
+		
+		//clearing combo box selection
+		toyTypeInput.getSelectionModel().clearSelection();
 	}
 	
 	/**
@@ -392,6 +433,11 @@ public class Manager implements Initializable{
 		int selected;
 		//selected but to check if something is selected
 		String item = removeListView.getSelectionModel().getSelectedItem();
+		
+// 		check to see if the user actually picked something 
+		if(item != null) {		
+		
+		
 		//gettng selected thing
 		selected = toyListView.getSelectionModel().getSelectedIndex();
 //		System.out.println("The selcted index is: " + selected); debug
@@ -409,7 +455,10 @@ public class Manager implements Initializable{
 		int inventory = globalMatchingToys.get(selected).getAvailableCount();
 //		System.out.println(inventory);
 		
-		if(inventory > 0) {
+
+			
+			if(inventory > 0) {
+			errorLabel.setText("");
 			String selectedSerialNumber = globalMatchingToys.get(selected).getSerialNumber();
 			for(int rewrite = 0; rewrite < toyList.size(); rewrite++) {
 				String activeToy = toyList.get(rewrite).getSerialNumber();
@@ -417,6 +466,7 @@ public class Manager implements Initializable{
 				if(selectedSerialNumber.equals(activeToy)) {
 					toyList.get(rewrite).setAvailableCount(inventory - 1);
 					
+					errorLabel.setText("Item purchased successfully!");
 					save();
 				}
 			}
@@ -424,7 +474,16 @@ public class Manager implements Initializable{
 		else {
 			//label saying that we're out of an item
 			//purchase works on the condition that they picked something 
+			errorLabel.setText("Can't purchase this item! It's out of stock!");
+			}
+			
 		}
+		// if user hasn't selected an item
+		else {
+			errorLabel.setText("Please select an item to purchase!");
+		}
+		
+		
 		
 		
 	}
