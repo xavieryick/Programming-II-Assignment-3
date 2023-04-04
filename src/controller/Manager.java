@@ -99,7 +99,11 @@ public class Manager implements Initializable{
 	@FXML
 	ObservableList<String> errorMessage = FXCollections.observableArrayList();
 	@FXML
-	Label errorLabel;
+	Label errorLabel; //for welcome screen
+	@FXML
+	Label errorLabel2; //for add toys 
+	@FXML
+	Label errorLabel3; //for remove toys
 	
 	public Manager() {
  		try {
@@ -221,6 +225,8 @@ public class Manager implements Initializable{
 		globalMatchingToys.clear();
 		
 		try {
+			//clearing out the error label if things work
+			errorLabel.setText("");
 			String serialNumber = serialNumberInput.getText().trim();
 			for (Toy toy:toyList) {
 				String currentToySN = toy.getSerialNumber();
@@ -248,6 +254,9 @@ public class Manager implements Initializable{
 		globalMatchingToys.clear();
 		
 		try {
+			//clearing out the error label if things work
+			errorLabel.setText("");
+			
 			String toyName = toyNameInput.getText().trim().toLowerCase();
 			for (Toy toy:toyList) {
 				String currentToyName = toy.getToyName();		
@@ -275,6 +284,9 @@ public class Manager implements Initializable{
 		globalMatchingToys.clear();
 		
 		try {
+			//clearing out the error label if things work
+			errorLabel.setText("");
+			
 			String toyType = toyTypeInput.getValue();
 			for (Toy toy:toyList) {
 				if (toyType.equals("Figure")) {
@@ -429,13 +441,16 @@ public class Manager implements Initializable{
 			save();
 		}
 		catch (Exception e) {
-			errorLabel.setText("There was an error");
+			errorLabel2.setText("Please enter proper information!");
 		}
 	}
 	
 	@FXML
 	void removeToySearch(ActionEvent Event) {	
 		try {
+			//clearing out the error label if things work
+			errorLabel3.setText("");
+			
 			ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
 			String serialNumber = removeSerialNumber.getText().trim();
 			for (Toy toy:toyList) {
@@ -447,7 +462,7 @@ public class Manager implements Initializable{
 			removeListView.setItems(matchingNumbers);
 		}
 		catch (Exception e) {
-			errorLabel.setText("There was an error");
+			errorLabel3.setText("There was an error");
 		}
 	}
 
@@ -458,7 +473,16 @@ public class Manager implements Initializable{
 //				toyList.remove(toy);
 //			}
 //		} this one dont work nice :(
-		try {
+		//checking to see if we selected something 
+		String item = removeListView.getSelectionModel().getSelectedItem();
+		//if statement to check that something was picked
+		if(item != null) {
+			
+			try {
+			//clearing out the error label if things work
+			errorLabel3.setText("");
+			
+			
 			for (int index = 0; index < toyList.size(); index++) {
 				if (toyList.get(index).getSerialNumber().equals(removeSerialNumber.getText().trim())) {
 					toyList.remove(index);
@@ -467,8 +491,15 @@ public class Manager implements Initializable{
 			save();
 		}
 		catch (Exception e) {
-			errorLabel.setText("There was an error");
+			errorLabel3.setText("There was an error");
+			}
 		}
+		else {
+//			System.out.println("PICK SOMETHING");
+			//we need another label bruh 
+			errorLabel3.setText("Please select an item to remove!");
+		}
+		
 //		System.out.println("Ttst");
 	}
 	

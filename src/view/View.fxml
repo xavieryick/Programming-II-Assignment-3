@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Manager">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Manager">
    <tabs>
       <Tab text="Search Toy">
          <content>
@@ -105,7 +105,7 @@
                   <ComboBox fx:id="newPuzzleType" layoutX="359.0" layoutY="227.0" prefWidth="122.0" />
                   <ComboBox fx:id="newAnimalSize" layoutX="616.0" layoutY="154.0" prefWidth="122.0" />
                   <Button layoutX="379.0" layoutY="300.0" mnemonicParsing="false" onAction="#addToy" text="Add!" />
-                  <Label fx:id="errorLabel1" layoutX="345.0" layoutY="332.0" prefHeight="18.0" prefWidth="109.0" />
+                  <Label fx:id="errorLabel2" alignment="CENTER" layoutX="299.0" layoutY="332.0" prefHeight="18.0" prefWidth="204.0" textAlignment="CENTER" />
                </children>
             </AnchorPane>
          </content>
@@ -124,7 +124,7 @@
                      </font>
                   </Label>
                   <Button fx:id="searchRemove" layoutX="490.0" layoutY="300.0" mnemonicParsing="false" onAction="#removeToySearch" text="Search" />
-                  <Label fx:id="errorLabel2" layoutX="497.0" layoutY="332.0" prefHeight="18.0" prefWidth="109.0" />
+                  <Label fx:id="errorLabel3" alignment="CENTER" layoutX="427.0" layoutY="331.0" prefHeight="18.0" prefWidth="250.0" textAlignment="CENTER" />
                </children>
             </AnchorPane>
          </content>
