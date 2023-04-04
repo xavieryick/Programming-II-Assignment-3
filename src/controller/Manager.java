@@ -362,7 +362,8 @@ public class Manager implements Initializable{
 	void purchase(ActionEvent Event) {
 //		System.out.println("purchase exists"); debug
 		int selected;
-		
+		//selected but to check if something is selected
+		String item = removeListView.getSelectionModel().getSelectedItem();
 		//gettng selected thing
 		selected = toyListView.getSelectionModel().getSelectedIndex();
 //		System.out.println("The selcted index is: " + selected); debug
