@@ -26,6 +26,7 @@ import model.Animals;
 import model.BoardGames;
 import model.Figures;
 import model.Puzzles;
+import exceptions.CustomException;
 
 /**
  * This class contains all of the methods needed and manages the program
@@ -241,19 +242,50 @@ public class Manager implements Initializable{
 	void searchBySerialNumber(ActionEvent Event) {	
 		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
 		ArrayList<Toy> matchingToys = new ArrayList<>();
+		
+		boolean validator = false; //allows for length and parse long check 
+		 
 		globalMatchingToys.clear();
 		
 		try {
 			//clearing out the error label if things work
 			errorLabel.setText("");
 			String serialNumber = serialNumberInput.getText().trim();
-			for (Toy toy:toyList) {
+			
+			//SN validation goes here
+			
+			if(serialNumber.length() != 10) {
+				errorLabel.setText("Invalid input! SN must be 10 digits long!");
+			}
+			
+			else {
+				validator = true;
+			}
+			
+			
+			//conduct parse long check here 
+			
+			if(validator == true) {
+				
+				try {
+					Long.parseLong(serialNumber);
+				}
+				catch(NumberFormatException e){
+					errorLabel.setText("Invalid input! All digits must be numbers!");
+					validator = false; 
+				}
+			}
+			
+			//now we can see if anything is found 
+			if (validator == true) {
+				for (Toy toy:toyList) {
 				String currentToySN = toy.getSerialNumber();
 				if (currentToySN.equals(serialNumber)) {
 					matchingToys.add(toy); //object list
 					globalMatchingToys.add(toy); //global list
 					matchingNumbers.add(toy.toString()); //observable list
-				}
+				}	
+				
 			}
 			
 			// checking to see if we actually found anything
@@ -263,10 +295,15 @@ public class Manager implements Initializable{
 				toyListView.getItems().clear();
 				errorLabel.setText("We couldn't find what you're looking for!");
 			}
+			
 			else {
 				toyListView.setItems(matchingNumbers);
+				}
+			
 			}
-		}
+			
+		
+		} //CUT OFF for TRY
 		catch (Exception e) {
 			errorLabel.setText("There was an error");
 		}
@@ -421,6 +458,9 @@ public class Manager implements Initializable{
 		
 		//clearing combo box selection
 		toyTypeInput.getSelectionModel().clearSelection();
+		
+		//clearing toy list view 
+		toyListView.getItems().clear();
 	}
 	
 	/**
@@ -432,7 +472,7 @@ public class Manager implements Initializable{
 //		System.out.println("purchase exists"); debug
 		int selected;
 		//selected but to check if something is selected
-		String item = removeListView.getSelectionModel().getSelectedItem();
+		String item = toyListView.getSelectionModel().getSelectedItem();
 		
 // 		check to see if the user actually picked something 
 		if(item != null) {		
@@ -455,7 +495,6 @@ public class Manager implements Initializable{
 		int inventory = globalMatchingToys.get(selected).getAvailableCount();
 //		System.out.println(inventory);
 		
-
 			
 			if(inventory > 0) {
 			errorLabel.setText("");
@@ -483,9 +522,6 @@ public class Manager implements Initializable{
 			errorLabel.setText("Please select an item to purchase!");
 		}
 		
-		
-		
-		
 	}
 
 	/**
@@ -493,7 +529,7 @@ public class Manager implements Initializable{
 	 * @param Event
 	 */
 	@FXML
-	void addToy(ActionEvent Event) {		
+	void addToy(ActionEvent Event) throws CustomException{		
 		try {
 			String serialNumber = newSerialNumber.getText().trim();
 			if (serialNumber.length() != 10) { // length of 10
@@ -616,20 +652,63 @@ public class Manager implements Initializable{
 	 * @param Event
 	 */
 	@FXML
-	void removeToySearch(ActionEvent Event) {	
+	void removeToySearch(ActionEvent Event) {
+		
+		boolean validator = false; //allows for length and parse long check 
+		
 		try {
 			//clearing out the error label if things work
 			errorLabel3.setText("");
 			
 			ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
 			String serialNumber = removeSerialNumber.getText().trim();
-			for (Toy toy:toyList) {
+			
+			//check length 
+			if(serialNumber.length() != 10) {
+				errorLabel3.setText("Invalid input! SN must be 10 digits long!");
+			}
+			
+			else {
+				validator = true;
+			}
+			
+			//check parse long 
+			if(validator == true) {
+				
+				try {
+					Long.parseLong(serialNumber);
+				}
+				catch(NumberFormatException e){
+					errorLabel3.setText("Invalid input! All digits must be numbers!");
+					validator = false; 
+				}
+			}
+			
+			
+			//checking for match 
+			if (validator == true) {
+				
+				for (Toy toy:toyList) {
 				String currentToySN = toy.getSerialNumber();
 				if (currentToySN.equals(serialNumber)) {
 					matchingNumbers.add(toy.toString());
 				}
 			}
-			removeListView.setItems(matchingNumbers);
+				
+//			removeListView.setItems(matchingNumbers);
+				
+			//checking if list length is zero
+			if(matchingNumbers.size() == 0) {
+				removeListView.getItems().clear();
+				errorLabel3.setText("We couldn't find what you're looking for!");
+			}
+			else {
+				removeListView.setItems(matchingNumbers);
+			}
+		}
+			
+			
+		//CATCH CUTOFF	
 		}
 		catch (Exception e) {
 			errorLabel3.setText("There was an error");
@@ -662,6 +741,7 @@ public class Manager implements Initializable{
 					toyList.remove(index);
 				}
 			}
+			errorLabel3.setText("Item successfully removed!");
 			save();
 		}
 		catch (Exception e) {

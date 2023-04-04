@@ -1,6 +1,6 @@
 package model;
 
-import controller.CustomException;
+import exceptions.CustomException;
 /**
  * This class represents the general attributes each toy has in the database.
  * @author kaydence eng

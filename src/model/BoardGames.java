@@ -1,6 +1,6 @@
 package model;
 
-import controller.CustomException;
+import exceptions.CustomException;
 /**
  * This class represents the toy type board games and extends from the toy class.
  * @author kaydence eng
