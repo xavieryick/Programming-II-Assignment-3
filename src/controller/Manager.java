@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,6 +110,7 @@ public class Manager implements Initializable{
 	
 	ObservableList<String> globalNoResults = FXCollections.observableArrayList("We couldn't find what you're looking for!");
 	
+	//for logging 
 	final static Logger LOGR = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	
@@ -124,7 +124,11 @@ public class Manager implements Initializable{
 	Label errorLabel3; //for remove toys
 	
 	public Manager() {
- 		try {
+ 		
+		//launching logs
+		launchLog();
+		
+		try {
 
  		} 
 		catch (Exception e) {
@@ -132,11 +136,42 @@ public class Manager implements Initializable{
 		}
 	}
 	
+	public void launchLog() {
+		LogManager.getLogManager().reset(); //we end up resetting the handler here; need to recreate it
+		LOGR.setLevel(Level.ALL);
+		
+		FileHandler fh = null;
+		try {
+			fh = new FileHandler("doc/storeLog.log", true);
+		
+		fh.setLevel(Level.ALL);
+		LOGR.addHandler(fh);
+		
+		SimpleFormatter formatter = new SimpleFormatter();
+		fh.setFormatter(formatter);
+		
+		LOGR.setUseParentHandlers(false);
+//		LogManager.getLogManager().reset();
+		
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//this one keeps printing twice
+//		LOGR.log(Level.INFO, "Store log initiated!");
+//		LOGR.info("tester");
+	}
+	
 	/**
 	 * This method initializes the program, loads the data and adds input selections to the ComboBoxes
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		LOGR.log(Level.INFO, "initialize() was called!");
 		toyList = new ArrayList<>();
 		loadData();
 		toyTypeInput.getItems().addAll(toyTypes);
@@ -150,6 +185,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void save() {
+		LOGR.log(Level.INFO, "save() was called!");
 		File db = new File(FILE_PATH);
 		PrintWriter printWriter;
 		try {
@@ -169,6 +205,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void loadData() {
+		LOGR.log(Level.INFO, "LoadData() was called!");
 		File db = new File(FILE_PATH);
 		String currentLine;
 		String[] splitLine;
@@ -246,7 +283,8 @@ public class Manager implements Initializable{
 	 * @param serialNumber user's given serial number
 	 */
 	@FXML
-	void searchBySerialNumber(ActionEvent Event) {	
+	void searchBySerialNumber(ActionEvent Event) {
+		LOGR.log(Level.FINEST, "searchBySerialNumber() was called!");
 		ObservableList<String> matchingNumbers = FXCollections.observableArrayList();
 		ArrayList<Toy> matchingToys = new ArrayList<>();
 		
@@ -322,6 +360,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void searchByToyName(ActionEvent Event) {
+		LOGR.log(Level.FINEST, "searchByToyName was called!");
 		ObservableList<String> matchingNames = FXCollections.observableArrayList();
 		ArrayList<Toy> matchingToys = new ArrayList<>();
 		globalMatchingToys.clear();
@@ -374,6 +413,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void searchByToyType(ActionEvent Event) {
+		LOGR.log(Level.FINEST, "searchByToyType() was called!");
 		ObservableList<String> matchingTypes = FXCollections.observableArrayList();
 		ArrayList<Toy> matchingToys = new ArrayList<>();
 		globalMatchingToys.clear();
@@ -435,6 +475,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void search(ActionEvent Event) {
+		LOGR.log(Level.FINEST, "search() was called!");
 //		System.out.println("Search event is happening"); debug
 		if (searchBySerialNumber.isSelected()) {
 			searchBySerialNumber(Event);
@@ -453,6 +494,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void clear(ActionEvent Event) {
+		LOGR.log(Level.FINEST, "clear() was called!");
 //		System.out.println("clear event is happening"); debug
 		
 		//clearing error label
@@ -476,6 +518,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML 
 	void purchase(ActionEvent Event) {
+		LOGR.log(Level.FINEST, "purchase() was called!");
 //		System.out.println("purchase exists"); debug
 		int selected;
 		//selected but to check if something is selected
@@ -513,6 +556,7 @@ public class Manager implements Initializable{
 					toyList.get(rewrite).setAvailableCount(inventory - 1);
 					
 					errorLabel.setText("Item purchased successfully!");
+					LOGR.log(Level.INFO, "Toy: " + selectedSerialNumber + " was purchased successfully!");
 					save();
 				}
 			}
@@ -536,7 +580,8 @@ public class Manager implements Initializable{
 	 * @param Event
 	 */
 	@FXML
-	void addToy(ActionEvent Event) throws CustomException{		
+	void addToy(ActionEvent Event) throws CustomException{
+		LOGR.log(Level.FINEST, "addToy() was called!");
 		try {
 			String serialNumber = newSerialNumber.getText().trim();
 			if (serialNumber.length() != 10) { // length of 10
@@ -586,6 +631,8 @@ public class Manager implements Initializable{
 													}
 													Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
 													toyList.add(addToy);
+													errorLabel2.setText("Toy successfully added!");
+													LOGR.log(Level.WARNING, "Toy: " + serialNumber + " was added successfully!");
 													save();
 												} catch (Exception e) {
 													errorLabel2.setText("Please select a figure classification");
@@ -600,6 +647,8 @@ public class Manager implements Initializable{
 													}
 													Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
 													toyList.add(addToy);
+													errorLabel2.setText("Toy successfully added!");
+													LOGR.log(Level.WARNING, "Toy: " + serialNumber + " was added successfully!");
 													save();
 												} catch (Exception e) {
 													errorLabel2.setText("Please select a puzzle type");
@@ -609,13 +658,18 @@ public class Manager implements Initializable{
 											if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
 												try {
 													String animalMaterial = newAnimalMaterial.getText().trim();
+													if (animalMaterial == null || animalMaterial == "") {
+															throw new Exception();
+														}
 													try {
 														String animalSize = newAnimalSize.getValue();
 														if (animalSize == null) {
 															throw new Exception();
-														}
+														}	
 														Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
 														toyList.add(addToy);
+														errorLabel2.setText("Toy successfully added!");
+														LOGR.log(Level.WARNING, "Toy: " + serialNumber + " was added successfully!");
 														save();
 													} catch (Exception e) {
 														errorLabel2.setText("Please select an animal size");
@@ -638,6 +692,8 @@ public class Manager implements Initializable{
 	//														}
 															Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
 															toyList.add(addToy);
+															errorLabel2.setText("Toy successfully added!");
+															LOGR.log(Level.WARNING, "Toy: " + serialNumber + " was added successfully!");
 															save();
 														} catch (Exception e) {
 															errorLabel2.setText("Please enter a valid board game designer");
@@ -684,7 +740,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void removeToySearch(ActionEvent Event) {
-		
+		LOGR.log(Level.FINEST, "removeToySearch() was called!");
 		boolean validator = false; //allows for length and parse long check 
 		
 		try {
@@ -752,6 +808,7 @@ public class Manager implements Initializable{
 	 */
 	@FXML
 	void removeToy(ActionEvent Event) {
+		LOGR.log(Level.FINEST, "removeToy() was called!");
 //		for (Toy toy:toyList) {
 //			if (toy.getSerialNumber().equals(removeSerialNumber.getText().trim())) {
 //				toyList.remove(toy);
@@ -759,6 +816,7 @@ public class Manager implements Initializable{
 //		} this one dont work nice :(
 		//checking to see if we selected something 
 		String item = removeListView.getSelectionModel().getSelectedItem();
+		String removedItem = null;
 		//if statement to check that something was picked
 		if(item != null) {
 			
@@ -769,10 +827,12 @@ public class Manager implements Initializable{
 			
 			for (int index = 0; index < toyList.size(); index++) {
 				if (toyList.get(index).getSerialNumber().equals(removeSerialNumber.getText().trim())) {
+					removedItem = toyList.get(index).getSerialNumber();
 					toyList.remove(index);
 				}
 			}
 			errorLabel3.setText("Item successfully removed!");
+			LOGR.log(Level.INFO, "Toy: " + removedItem + " was removed successfully!");
 			removeListView.getItems().clear();
 			save();
 		}
