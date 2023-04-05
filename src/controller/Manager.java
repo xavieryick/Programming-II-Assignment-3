@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,9 +30,12 @@ import model.Figures;
 import model.Puzzles;
 import exceptions.CustomException;
 
+import java.util.logging.*;
+
 /**
  * This class contains all of the methods needed and manages the program
  * @author xavie
+ * @author kaydence eng
  *
  */
 public class Manager implements Initializable{
@@ -105,6 +110,8 @@ public class Manager implements Initializable{
 	int globalSelectedIndex;
 	
 	ObservableList<String> globalNoResults = FXCollections.observableArrayList("We couldn't find what you're looking for!");
+	
+	final static Logger LOGR = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	
 	// initializes matching toy array list
@@ -549,6 +556,16 @@ public class Manager implements Initializable{
 						}
 						try {
 							double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
+							
+							if (toyPrice < 0) {
+								errorLabel2.setText("Price must be greater than zero");
+								throw new CustomException("Toy prices can't be negative!");
+								
+								//it catches negative prices now, i don't know how that happened
+								//custom message won't show up though
+								
+							}
+							
 							try {
 								int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
 								try {
@@ -608,6 +625,10 @@ public class Manager implements Initializable{
 													int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
 													try {
 														String boardGameDesigners = newBoardGameDesigners.getText().trim();
+														//i added this little block, it didn't help 
+//														if(boardGameDesigners == null) {
+//															throw new Exception();
+//														}
 														Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
 														toyList.add(addToy);
 														save();
@@ -631,7 +652,7 @@ public class Manager implements Initializable{
 								errorLabel2.setText("Please enter a valid available count");
 							}
 						} catch (Exception e) {
-							errorLabel2.setText("Please enter a valid toy price");
+							errorLabel2.setText("Please enter a valid toy price!");
 						}
 					} catch (Exception e) {
 						errorLabel2.setText("Please enter a valid toy brand");	
@@ -742,6 +763,7 @@ public class Manager implements Initializable{
 				}
 			}
 			errorLabel3.setText("Item successfully removed!");
+			removeListView.getItems().clear();
 			save();
 		}
 		catch (Exception e) {
