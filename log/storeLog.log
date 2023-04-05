@@ -70,3 +70,29 @@ Apr 04, 2023 11:45:23 PM controller.Manager addToy
 WARNING: Toy: 2901234567 was added successfully!
 Apr 04, 2023 11:45:23 PM controller.Manager save
 INFO: save() was called!
+Apr 04, 2023 11:49:43 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:49:43 PM controller.Manager loadData
+INFO: LoadData() was called!
+Apr 04, 2023 11:49:51 PM controller.Manager search
+FINEST: search() was called!
+Apr 04, 2023 11:49:51 PM controller.Manager searchBySerialNumber
+FINEST: searchBySerialNumber() was called!
+Apr 04, 2023 11:50:03 PM controller.Manager search
+FINEST: search() was called!
+Apr 04, 2023 11:50:03 PM controller.Manager searchBySerialNumber
+FINEST: searchBySerialNumber() was called!
+Apr 04, 2023 11:50:04 PM controller.Manager purchase
+FINEST: purchase() was called!
+Apr 04, 2023 11:50:04 PM controller.Manager purchase
+INFO: Toy: 2901234567 was purchased successfully!
+Apr 04, 2023 11:50:04 PM controller.Manager save
+INFO: save() was called!
+Apr 04, 2023 11:50:05 PM controller.Manager search
+FINEST: search() was called!
+Apr 04, 2023 11:50:05 PM controller.Manager searchBySerialNumber
+FINEST: searchBySerialNumber() was called!
+Apr 04, 2023 11:54:32 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:54:32 PM controller.Manager loadData
+INFO: LoadData() was called!
