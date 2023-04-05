@@ -620,8 +620,14 @@ public class Manager implements Initializable{
 								
 								try {
 									int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
+									if (availableCount < 0) {
+										throw new Exception();
+									}
 									try {
 										int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim()); // works to here
+										if (appropriateAge < 0) {
+											throw new Exception();
+										}
 										try {
 											if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
 												try {
@@ -682,8 +688,14 @@ public class Manager implements Initializable{
 											if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
 												try {
 													int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
+													if (boardGameMinCount < 0) {
+														throw new Exception();
+													}
 													try {
 														int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
+														if (boardGameMaxCount < 0 || boardGameMaxCount < boardGameMinCount) {
+															throw new Exception();
+														}
 														try {
 															String boardGameDesigners = newBoardGameDesigners.getText().trim();
 															//i added this little block, it didn't help 
