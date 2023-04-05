@@ -10,3 +10,63 @@ Apr 04, 2023 11:38:31 PM controller.Manager initialize
 INFO: initialize() was called!
 Apr 04, 2023 11:38:31 PM controller.Manager loadData
 INFO: LoadData() was called!
+Apr 04, 2023 11:40:34 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:40:34 PM controller.Manager loadData
+INFO: LoadData() was called!
+Apr 04, 2023 11:40:38 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:40:50 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:40:55 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:40:57 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:41:01 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:41:01 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:41:04 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:41:27 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:41:32 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:41:32 PM controller.Manager addToy
+WARNING: Toy: 9990008888 was added successfully!
+Apr 04, 2023 11:41:32 PM controller.Manager save
+INFO: save() was called!
+Apr 04, 2023 11:41:56 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:41:56 PM controller.Manager loadData
+INFO: LoadData() was called!
+Apr 04, 2023 11:43:58 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:43:58 PM controller.Manager loadData
+INFO: LoadData() was called!
+Apr 04, 2023 11:44:12 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:44:16 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:44:24 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:44:24 PM controller.Manager addToy
+WARNING: Toy: 8901234567 was added successfully!
+Apr 04, 2023 11:44:24 PM controller.Manager save
+INFO: save() was called!
+Apr 04, 2023 11:44:26 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:44:27 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:45:11 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:45:17 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:45:18 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:45:23 PM controller.Manager addToy
+FINEST: addToy() was called!
+Apr 04, 2023 11:45:23 PM controller.Manager addToy
+WARNING: Toy: 2901234567 was added successfully!
+Apr 04, 2023 11:45:23 PM controller.Manager save
+INFO: save() was called!

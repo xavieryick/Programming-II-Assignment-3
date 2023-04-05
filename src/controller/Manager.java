@@ -699,10 +699,10 @@ public class Manager implements Initializable{
 														}
 														try {
 															String boardGameDesigners = newBoardGameDesigners.getText().trim();
-															//i added this little block, it didn't help 
-	//														if(boardGameDesigners == null) {
-	//															throw new Exception();
-	//														}
+															//checking for blank creators 
+															if(boardGameDesigners == null || boardGameDesigners == "") {
+																throw new Exception();
+															}
 															Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
 															toyList.add(addToy);
 															errorLabel2.setText("Toy successfully added!");
