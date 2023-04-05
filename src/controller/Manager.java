@@ -543,126 +543,136 @@ public class Manager implements Initializable{
 				throw new Exception();
 			}
 			try {
-				long validSN = Long.parseLong(serialNumber); // checks for non-numbers
-				try {
-					String toyName = newToyName.getText().trim();
-					if (toyName.length() == 0) {
+				for(Toy toy: toyList) {
+					String currentToy = toy.getSerialNumber();
+					if (currentToy.equals(serialNumber)) {
 						throw new Exception();
 					}
+				}
+				try {
+					long validSN = Long.parseLong(serialNumber); // checks for non-numbers
 					try {
-						String toyBrand = newToyBrand.getText().trim();
-						if (toyBrand.length() == 0) {
+						String toyName = newToyName.getText().trim();
+						if (toyName.length() == 0) {
 							throw new Exception();
 						}
 						try {
-							double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
-							
-							if (toyPrice < 0) {
-								errorLabel2.setText("Price must be greater than zero");
-								throw new CustomException("Toy prices can't be negative!");
-								
-								//it catches negative prices now, i don't know how that happened
-								//custom message won't show up though
-								
+							String toyBrand = newToyBrand.getText().trim();
+							if (toyBrand.length() == 0) {
+								throw new Exception();
 							}
-							
 							try {
-								int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
+								double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
+								
+								if (toyPrice < 0) {
+									errorLabel2.setText("Price must be greater than zero");
+									throw new CustomException("Toy prices can't be negative!");
+									
+									//it catches negative prices now, i don't know how that happened
+									//custom message won't show up though
+									
+								}
+								
 								try {
-									int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim()); // works to here
+									int availableCount = Integer.parseInt(newAvailableCount.getText().trim());
 									try {
-										if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
-											try {
-												String figureClassification = newFigureClassification.getValue();
-												if (figureClassification == null) {
-													throw new Exception();
-												}
-												Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
-												toyList.add(addToy);
-												save();
-											} catch (Exception e) {
-												errorLabel2.setText("Please select a figure classification");
-											}
-										}
-										
-										if (serialNumber.charAt(0) == '4' || serialNumber.charAt(0) == '5' || serialNumber.charAt(0) == '6') {
-											try {
-												String puzzleType = newPuzzleType.getValue();
-												if (puzzleType == null) {
-													throw new Exception();
-												}
-												Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
-												toyList.add(addToy);
-												save();
-											} catch (Exception e) {
-												errorLabel2.setText("Please select a puzzle type");
-											}
-										}
-										
-										if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
-											try {
-												String animalMaterial = newAnimalMaterial.getText().trim();
+										int appropriateAge = Integer.parseInt(newAppropriateAge.getText().trim()); // works to here
+										try {
+											if (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1') {
 												try {
-													String animalSize = newAnimalSize.getValue();
-													if (animalSize == null) {
+													String figureClassification = newFigureClassification.getValue();
+													if (figureClassification == null) {
 														throw new Exception();
 													}
-													Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
+													Toy addToy = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,figureClassification);
 													toyList.add(addToy);
 													save();
 												} catch (Exception e) {
-													errorLabel2.setText("Please select an animal size");
+													errorLabel2.setText("Please select a figure classification");
 												}
-											} catch (Exception e) {
-												errorLabel2.setText("Please enter a valid animal material");
 											}
-										}
-										
-										if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
-											try {
-												int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
+											
+											if (serialNumber.charAt(0) == '4' || serialNumber.charAt(0) == '5' || serialNumber.charAt(0) == '6') {
 												try {
-													int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
+													String puzzleType = newPuzzleType.getValue();
+													if (puzzleType == null) {
+														throw new Exception();
+													}
+													Toy addToy = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzleType);
+													toyList.add(addToy);
+													save();
+												} catch (Exception e) {
+													errorLabel2.setText("Please select a puzzle type");
+												}
+											}
+											
+											if (serialNumber.charAt(0) == '2' || serialNumber.charAt(0) == '3') {
+												try {
+													String animalMaterial = newAnimalMaterial.getText().trim();
 													try {
-														String boardGameDesigners = newBoardGameDesigners.getText().trim();
-														//i added this little block, it didn't help 
-//														if(boardGameDesigners == null) {
-//															throw new Exception();
-//														}
-														Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
+														String animalSize = newAnimalSize.getValue();
+														if (animalSize == null) {
+															throw new Exception();
+														}
+														Toy addToy = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,animalMaterial,animalSize);
 														toyList.add(addToy);
 														save();
 													} catch (Exception e) {
-														errorLabel2.setText("Please enter a valid board game designer");
+														errorLabel2.setText("Please select an animal size");
 													}
 												} catch (Exception e) {
-													errorLabel2.setText("Please enter a valid board game maximum player count");
+													errorLabel2.setText("Please enter a valid animal material");
 												}
-											} catch (Exception e) {
-												errorLabel2.setText("Please enter a valid board game minimum player count");
 											}
+											
+											if (serialNumber.charAt(0) == '7' || serialNumber.charAt(0) == '8' || serialNumber.charAt(0) == '9') {
+												try {
+													int boardGameMinCount = Integer.parseInt(newBoardGameMinCount.getText().trim());
+													try {
+														int boardGameMaxCount = Integer.parseInt(newBoardGameMaxCount.getText().trim());
+														try {
+															String boardGameDesigners = newBoardGameDesigners.getText().trim();
+															//i added this little block, it didn't help 
+	//														if(boardGameDesigners == null) {
+	//															throw new Exception();
+	//														}
+															Toy addToy = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,boardGameMinCount,boardGameMaxCount,boardGameDesigners);
+															toyList.add(addToy);
+															save();
+														} catch (Exception e) {
+															errorLabel2.setText("Please enter a valid board game designer");
+														}
+													} catch (Exception e) {
+														errorLabel2.setText("Please enter a valid board game maximum player count");
+													}
+												} catch (Exception e) {
+													errorLabel2.setText("Please enter a valid board game minimum player count");
+												}
+											}
+										} catch (Exception e) {
+											// checking for first digit, does this need anything?
 										}
 									} catch (Exception e) {
-										// checking for first digit, does this need anything?
+										errorLabel2.setText("Please enter a valid appropriate age");
 									}
 								} catch (Exception e) {
-									errorLabel2.setText("Please enter a valid appropriate age");
+									errorLabel2.setText("Please enter a valid available count");
 								}
 							} catch (Exception e) {
-								errorLabel2.setText("Please enter a valid available count");
+								errorLabel2.setText("Please enter a valid toy price!");
 							}
 						} catch (Exception e) {
-							errorLabel2.setText("Please enter a valid toy price!");
+							errorLabel2.setText("Please enter a valid toy brand");	
 						}
 					} catch (Exception e) {
-						errorLabel2.setText("Please enter a valid toy brand");	
+						errorLabel2.setText("Please enter a valid toy name");
 					}
 				} catch (Exception e) {
-					errorLabel2.setText("Please enter a valid toy name");
-				}
+					errorLabel2.setText("Please enter a serial number with only numbers");
+				}	
 			} catch (Exception e) {
-				errorLabel2.setText("Please enter a serial number with only numbers");
-			}	
+				errorLabel2.setText("This serial number is being used, please try another");
+			}
 		} catch (Exception e) {
 			errorLabel2.setText("Please enter a serial number with 10 digits");
 		}
