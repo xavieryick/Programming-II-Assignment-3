@@ -21,7 +21,7 @@
 8947640910;Exploding Kittens;Game Pixel;73.07;8;3;2-4;Haniya Woodley,Ruairidh Larsen
 1167480102;Transformers;Game Zombie;9.41;9;9;H
 9258568559;Jenga;Game Reboot;49.34;10;7;2-7;Maryam Mcdonnell,Shanaya Walter
-2804598463;Kangaroo;Gamefluent;289.37;13;6;Wooden;S
+2804598463;Kangaroo;Gamefluent;289.37;12;6;Wooden;S
 5239019250;Nob Yoshigahara Puzzle Design Competition;Game Zombie;67.2;5;3;M
 1989637627;Abraham Lincoln;Game Throne;60.1;5;7;H
 5446463966;Rubik's Magic;Game Sensor;15.71;7;2;C
@@ -226,3 +226,4 @@
 2345678000;rr;rr;22.0;3;33;cotton;Small
 2345478900;tree;ereerer;12.0;11;1;wool;Medium
 2345678900;eee;eee;11.0;122;12;cotton;Small
+1234567890;rr;rr;1.0;23;2;Historic

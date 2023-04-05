@@ -5,7 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import model.Animals;
-
+/**
+ * This method tests the animal class.
+ * @author kaydence eng 
+ *
+ */
 class AnimalsTest {
 
 Animals toy;

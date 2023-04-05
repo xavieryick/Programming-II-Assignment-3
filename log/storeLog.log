@@ -1,0 +1,12 @@
+Apr 04, 2023 11:35:27 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:35:27 PM controller.Manager loadData
+INFO: LoadData() was called!
+Apr 04, 2023 11:38:01 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:38:02 PM controller.Manager loadData
+INFO: LoadData() was called!
+Apr 04, 2023 11:38:31 PM controller.Manager initialize
+INFO: initialize() was called!
+Apr 04, 2023 11:38:31 PM controller.Manager loadData
+INFO: LoadData() was called!

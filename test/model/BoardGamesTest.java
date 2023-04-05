@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import exceptions.CustomException;
 
-
-
-
-
+/**
+ * This method tests the board game class.
+ * @author kaydence eng 
+ *
+ */
 class BoardGamesTest {
 
 BoardGames toy;

@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * This method tests the puzzles class.
+ * @author kaydence eng 
+ *
+ */
 class PuzzlesTest {
 
 Puzzles toy;

@@ -108,7 +108,7 @@ public class Manager implements Initializable{
 	//global variables 
 	int globalSelectedIndex;
 	
-	ObservableList<String> globalNoResults = FXCollections.observableArrayList("We couldn't find what you're looking for!");
+//	ObservableList<String> globalNoResults = FXCollections.observableArrayList("We couldn't find what you're looking for!");
 	
 	//for logging 
 	final static Logger LOGR = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -142,7 +142,7 @@ public class Manager implements Initializable{
 		
 		FileHandler fh = null;
 		try {
-			fh = new FileHandler("doc/storeLog.log", true);
+			fh = new FileHandler("log/storeLog.log", true);
 		
 		fh.setLevel(Level.ALL);
 		LOGR.addHandler(fh);
@@ -163,7 +163,7 @@ public class Manager implements Initializable{
 		
 		//this one keeps printing twice
 //		LOGR.log(Level.INFO, "Store log initiated!");
-//		LOGR.info("tester");
+
 	}
 	
 	/**
@@ -465,7 +465,7 @@ public class Manager implements Initializable{
 			toyListView.setItems(matchingTypes);
 		}
 		catch (Exception e) {
-			errorLabel.setText("There was an error");
+			errorLabel.setText("Please select a toy type!");
 		}
 	}
 	
@@ -609,11 +609,12 @@ public class Manager implements Initializable{
 							try {
 								double toyPrice = Double.parseDouble(newToyPrice.getText().trim());
 								
-								if (toyPrice < 0) {
+								if (toyPrice <= 0) {
 									errorLabel2.setText("Price must be greater than zero");
 									throw new CustomException("Toy prices can't be negative!");
 									
 									//it catches negative prices now, i don't know how that happened
+									// just changes label
 									//custom message won't show up though
 									
 								}
@@ -708,41 +709,41 @@ public class Manager implements Initializable{
 															LOGR.log(Level.WARNING, "Toy: " + serialNumber + " was added successfully!");
 															save();
 														} catch (Exception e) {
-															errorLabel2.setText("Please enter a valid board game designer");
+															errorLabel2.setText("Please enter a valid board game designer!");
 														}
 													} catch (Exception e) {
-														errorLabel2.setText("Please enter a valid board game maximum player count");
+														errorLabel2.setText("Please enter a valid board game maximum player count!");
 													}
 												} catch (Exception e) {
-													errorLabel2.setText("Please enter a valid board game minimum player count");
+													errorLabel2.setText("Please enter a valid board game minimum player count!");
 												}
 											}
 										} catch (Exception e) {
 											// checking for first digit, does this need anything?
 										}
 									} catch (Exception e) {
-										errorLabel2.setText("Please enter a valid appropriate age");
+										errorLabel2.setText("Please enter a valid appropriate age!");
 									}
 								} catch (Exception e) {
-									errorLabel2.setText("Please enter a valid available count");
+									errorLabel2.setText("Please enter a valid available count!");
 								}
 							} catch (Exception e) {
 								errorLabel2.setText("Please enter a valid toy price!");
 							}
 						} catch (Exception e) {
-							errorLabel2.setText("Please enter a valid toy brand");	
+							errorLabel2.setText("Please enter a valid toy brand!");	
 						}
 					} catch (Exception e) {
-						errorLabel2.setText("Please enter a valid toy name");
+						errorLabel2.setText("Please enter a valid toy name!");
 					}
 				} catch (Exception e) {
-					errorLabel2.setText("Please enter a serial number with only numbers");
+					errorLabel2.setText("Please enter a serial number with only numbers!");
 				}	
 			} catch (Exception e) {
-				errorLabel2.setText("This serial number is being used, please try another");
+				errorLabel2.setText("This serial number is already used, please try another!");
 			}
 		} catch (Exception e) {
-			errorLabel2.setText("Please enter a serial number with 10 digits");
+			errorLabel2.setText("Please enter a serial number with 10 digits!");
 		}
 	}
 	
@@ -794,7 +795,6 @@ public class Manager implements Initializable{
 				}
 			}
 				
-//			removeListView.setItems(matchingNumbers);
 				
 			//checking if list length is zero
 			if(matchingNumbers.size() == 0) {
@@ -821,11 +821,7 @@ public class Manager implements Initializable{
 	@FXML
 	void removeToy(ActionEvent Event) {
 		LOGR.log(Level.FINEST, "removeToy() was called!");
-//		for (Toy toy:toyList) {
-//			if (toy.getSerialNumber().equals(removeSerialNumber.getText().trim())) {
-//				toyList.remove(toy);
-//			}
-//		} this one dont work nice :(
+
 		//checking to see if we selected something 
 		String item = removeListView.getSelectionModel().getSelectedItem();
 		String removedItem = null;
@@ -853,12 +849,11 @@ public class Manager implements Initializable{
 			}
 		}
 		else {
-//			System.out.println("PICK SOMETHING");
-			//we need another label bruh 
+
+			//user must pick something
 			errorLabel3.setText("Please select an item to remove!");
 		}
 		
-//		System.out.println("Ttst");
 	}
 	
 }
