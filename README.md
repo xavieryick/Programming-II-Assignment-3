@@ -15,4 +15,4 @@
 - Fundamental Code 
 - User Validation 
 - Methods (add toy, search) 
-- Conversion of code to make it fxml friendly
+- Conversion of code to make it fxml friendly 
